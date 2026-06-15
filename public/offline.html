@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#121417" />
+    <title>Capital Analyzer hors ligne</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        background: #070908;
+        color: #f7f8f4;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          linear-gradient(180deg, rgba(17, 22, 20, 0.96) 0%, #070908 52%, #050605 100%);
+      }
+
+      main {
+        width: min(100%, 420px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 28px;
+        padding: 24px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.082),
+          rgba(255, 255, 255, 0.046)
+        );
+        box-shadow: 0 18px 52px rgba(0, 0, 0, 0.24);
+        backdrop-filter: blur(18px);
+      }
+
+      img {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .eyebrow {
+        margin-top: 18px;
+        color: #24b083;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 8px 0 0;
+        font-size: 28px;
+        line-height: 1.05;
+      }
+
+      .copy {
+        margin-top: 12px;
+        color: rgba(247, 248, 244, 0.72);
+        font-size: 15px;
+        font-weight: 650;
+        line-height: 1.55;
+      }
+
+      .pill {
+        margin-top: 20px;
+        display: inline-flex;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 10px 14px;
+        color: rgba(247, 248, 244, 0.78);
+        font-size: 13px;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img src="/icon.svg" alt="" />
+      <p class="eyebrow">Hors ligne</p>
+      <h1>Capital Analyzer reste disponible.</h1>
+      <p class="copy">
+        Tes données locales restent sur cet appareil. Reconnecte-toi pour actualiser les
+        données de marché gratuites.
+      </p>
+      <p class="pill">Mode personnel sécurisé</p>
+    </main>
+  </body>
+</html>
