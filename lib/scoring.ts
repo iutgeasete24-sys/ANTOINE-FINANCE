@@ -43,7 +43,7 @@ function scale(value: number, low: number, high: number, max: number) {
 }
 
 function inverseScale(value: number, low: number, high: number, max: number) {
-  return clamp(((high - value) / (high - low)) * max, 0, max);
+  return clamp(((low - value) / (low - high)) * max, 0, max);
 }
 
 function lowerIsBetterSignal(value: number | null, good: number, caution: number) {
@@ -580,10 +580,10 @@ export function buildScoreBlocks(data: RawStockData): ScoreBlock[] {
 }
 
 function buildDecision(score: number, valuationBlock: ScoreBlock): Decision {
-  if (score >= 78 && valuationBlock.signal !== "red") return "Acheter progressivement";
-  if (score >= 68 && valuationBlock.signal === "red") return "Attendre un meilleur prix";
-  if (score >= 56) return "Conserver";
-  return "Éviter";
+  if (score >= 78 && valuationBlock.signal !== "red") return "Profil favorable";
+  if (score >= 68 && valuationBlock.signal === "red") return "Valorisation exigeante";
+  if (score >= 56) return "Profil équilibré";
+  return "Profil prudent";
 }
 
 export function getScoreExplanation(blocks: ScoreBlock[]): ScoreExplanation {

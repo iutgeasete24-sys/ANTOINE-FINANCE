@@ -32,10 +32,10 @@ export function signalDotClasses(signal: Signal) {
 export function signalText(signal: Signal) {
   switch (signal) {
     case "green":
-      return "Très bon";
+      return "Profil favorable";
     case "orange":
       return "À surveiller";
     case "red":
-      return "Risque élevé";
+      return "Profil prudent";
   }
 }

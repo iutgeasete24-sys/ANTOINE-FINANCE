@@ -369,7 +369,7 @@ function inferSubSector(ticker: string, name: string, rawSector: string, type: "
     return "Intelligence artificielle";
   }
   if (rawSector === "Santé") {
-    if (["LLY", "NVO", "SAN.PA", "MRK", "PFE", "ABBV", "JNJ", "NOVN.SW", "ROG.SW"].includes(ticker)) return "Pharmaceutique";
+    if (["LLY", "NVO", "NOVO-B.CO", "SAN.PA", "MRK", "PFE", "ABBV", "JNJ", "NOVN.SW", "ROG.SW"].includes(ticker)) return "Pharmaceutique";
     if (["AMGN", "BIIB", "GILD", "VRTX", "REGN"].includes(ticker)) return "Biotechnologie";
     if (["SYK", "MDT", "BSX", "ISRG", "EL.PA"].includes(ticker)) return "Medtech";
     if (["UNH", "ELV", "CI", "HUM"].includes(ticker)) return "Assurance santé";
@@ -417,6 +417,7 @@ function inferSubSector(ticker: string, name: string, rawSector: string, type: "
 }
 
 function inferCurrency(exchange: string, country: string) {
+  if (exchange.includes("NYSE") || exchange.includes("NASDAQ")) return "USD";
   if (exchange.includes("Paris") || exchange.includes("Amsterdam") || exchange === "Xetra" || exchange.includes("Madrid")) return "EUR";
   if (exchange.includes("London")) return "GBP";
   if (exchange.includes("Swiss")) return "CHF";

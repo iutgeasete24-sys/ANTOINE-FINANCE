@@ -8,8 +8,24 @@ import { SignalBadge } from "@/components/SignalBadge";
 import { TickerSearch } from "@/components/TickerSearch";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useWatchlist } from "@/hooks/useWatchlist";
+import type { WatchlistItem } from "@/types/finance";
 
 type SortMode = "score" | "variation" | "decision";
+
+function decisionLabel(item: WatchlistItem) {
+  if (
+    item.decision === "Profil favorable" ||
+    item.decision === "Profil équilibré" ||
+    item.decision === "Profil prudent" ||
+    item.decision === "Valorisation exigeante"
+  ) {
+    return item.decision;
+  }
+
+  if (item.score >= 78) return "Profil favorable";
+  if (item.score >= 56) return "Profil équilibré";
+  return "Profil prudent";
+}
 
 export function WatchlistClient() {
   const { items, setItems } = useWatchlist();
@@ -17,7 +33,9 @@ export function WatchlistClient() {
   const sortedItems = useMemo(() => {
     return [...items].sort((a, b) => {
       if (sortMode === "variation") return b.dayChangePercent - a.dayChangePercent;
-      if (sortMode === "decision") return a.decision.localeCompare(b.decision);
+      if (sortMode === "decision") {
+        return decisionLabel(a).localeCompare(decisionLabel(b));
+      }
       return b.score - a.score;
     });
   }, [items, sortMode]);
@@ -85,7 +103,9 @@ export function WatchlistClient() {
                   <p className="mt-1 truncate text-sm font-medium text-graphite/70">
                     {item.name}
                   </p>
-                  <p className="mt-3 text-sm font-bold text-ink">{item.decision}</p>
+                  <p className="mt-3 text-sm font-bold text-ink">
+                    {decisionLabel(item)}
+                  </p>
                 </Link>
                 <button
                   type="button"

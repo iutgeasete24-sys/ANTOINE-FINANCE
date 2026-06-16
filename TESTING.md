@@ -43,7 +43,7 @@
 - Vérifier le premier écran : nom, ticker, secteur, prix, variation, score, décision.
 - Vérifier forces, vigilances, qualité des données, source et mise à jour.
 - Vérifier que les données d'exemple sont clairement signalées sans jargon.
-- Ouvrir le détail du score et contrôler sous-scores, indicateurs et données manquantes.
+- Ouvrir le détail du score et contrôler sous-scores, indicateurs et données indisponibles.
 
 ## ETF
 

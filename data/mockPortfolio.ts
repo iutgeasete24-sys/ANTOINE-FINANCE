@@ -64,9 +64,9 @@ export const mockPortfolioLines: PortfolioLine[] = [
     dataQualityScore: 100
   },
   {
-    id: "line-nvo-degiro",
+    id: "line-novo-b-degiro",
     broker: "Degiro",
-    ticker: "NVO",
+    ticker: "NOVO-B.CO",
     name: "Novo Nordisk",
     sector: "Santé",
     country: "Danemark",

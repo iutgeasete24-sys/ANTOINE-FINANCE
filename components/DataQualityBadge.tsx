@@ -33,9 +33,9 @@ export function DataQualityBadge({ dataQuality }: DataQualityBadgeProps) {
       <p className="mt-2 text-xs font-semibold opacity-80">
         Données gratuites, potentiellement différées. Utilisation personnelle.
       </p>
-      {dataQuality.warnings.length > 0 && (
+      {dataQuality.completenessScore < 100 && dataQuality.warnings.length > 0 && (
         <p className="mt-2 text-xs leading-relaxed opacity-80">
-          Certaines données sont manquantes, le score est donc partiel.
+          Certaines données clés sont indisponibles, le score est donc partiel.
         </p>
       )}
     </div>

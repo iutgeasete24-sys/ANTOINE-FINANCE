@@ -283,7 +283,7 @@ export function ExplorerClient() {
               Résultats
             </p>
             <h2 className="text-xl font-black text-ink">
-              {results.length} titre{results.length > 1 ? "s" : ""}
+              {results.length} {results.length > 1 ? "titres" : "titre"}
             </h2>
           </div>
           <p className="text-right text-xs font-semibold text-graphite">

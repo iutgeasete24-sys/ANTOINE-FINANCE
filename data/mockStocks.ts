@@ -187,7 +187,7 @@ export const mockStocks: RawStockData[] = [
     }
   },
   {
-    ticker: "NVO",
+    ticker: "NOVO-B.CO",
     name: "Novo Nordisk",
     sector: "Santé",
     country: "Danemark",

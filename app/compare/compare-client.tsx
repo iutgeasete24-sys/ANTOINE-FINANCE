@@ -8,7 +8,7 @@ import type { ScoreBlockKey, StockAnalysis } from "@/types/finance";
 import { formatCurrency, formatPercent } from "@/utils/format";
 import { scoreSignal } from "@/utils/signals";
 
-const defaultTickers = ["ASML", "AVGO", "NVO"];
+const defaultTickers = ["ASML", "AVGO", "NOVO-B.CO"];
 
 const rows: Array<{ key: ScoreBlockKey; label: string }> = [
   { key: "growth", label: "Croissance" },

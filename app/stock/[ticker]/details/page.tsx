@@ -29,7 +29,7 @@ export default async function StockDetailsPage({ params }: StockDetailsPageProps
         </p>
         <h1 className="mt-1 text-3xl font-black">{analysis.ticker}</h1>
         <p className="mt-2 text-sm font-medium leading-relaxed text-graphite">
-          Chaque ligne indique sa valeur, son signal, son impact sur le score et la source.
+          Chaque ligne indique sa valeur, son niveau de lecture, son impact sur le score et la source.
         </p>
       </header>
 

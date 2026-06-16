@@ -9,10 +9,10 @@ export type DataQualityLevel = "élevée" | "moyenne" | "faible";
 export type NumericValue = number | null;
 
 export type Decision =
-  | "Acheter progressivement"
-  | "Attendre un meilleur prix"
-  | "Conserver"
-  | "Éviter";
+  | "Profil favorable"
+  | "Profil équilibré"
+  | "Profil prudent"
+  | "Valorisation exigeante";
 
 export type ScoreBlockKey =
   | "growth"
