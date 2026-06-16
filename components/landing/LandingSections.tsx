@@ -22,6 +22,7 @@ import {
   MiniInsight,
   PricingCard
 } from "@/components/landing/LandingCards";
+import { pricingPlans } from "@/data/pricingPlans";
 
 interface ReportItem {
   label: string;
@@ -379,28 +380,27 @@ export function PricingSection() {
       <LandingSectionHeader
         eyebrow="Pricing"
         title="Commencez gratuitement, passez à plus quand vous en avez besoin."
+        description="Aucun paiement n’est activé pour le moment : l’objectif est de tester l’intérêt pour les offres."
       />
       <div className="mt-4 space-y-3">
-        <PricingCard
-          name="Free"
-          price="0 €"
-          description="Pour tester les rapports et explorer la méthode."
-          features={["Rapport exemple", "Recherche d'actions", "Sources affichées"]}
-        />
-        <PricingCard
-          name="Plus"
-          price="8,99 €/mois"
-          description="Pour suivre plus de dossiers avec une lecture plus personnelle."
-          features={["Watchlist enrichie", "Comparaisons", "Widgets personnalisés"]}
-          highlighted
-        />
-        <PricingCard
-          name="Pro"
-          price="19,99 €/mois"
-          description="Pour structurer un suivi avancé et plusieurs portefeuilles."
-          features={["Portefeuilles avancés", "Rapports approfondis", "Suivi prioritaire"]}
-        />
+        {pricingPlans.map((plan) => (
+          <PricingCard
+            key={plan.id}
+            name={plan.name}
+            price={plan.price}
+            description={plan.description}
+            features={plan.features.slice(0, 3)}
+            highlighted={plan.highlighted}
+          />
+        ))}
       </div>
+      <Link
+        href="/pricing"
+        className="tap-feedback mt-4 flex h-12 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.07] text-sm font-black text-ink"
+      >
+        Comparer les plans
+        <ArrowRight size={16} />
+      </Link>
     </section>
   );
 }
