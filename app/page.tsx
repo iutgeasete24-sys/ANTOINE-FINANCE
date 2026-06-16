@@ -2,6 +2,7 @@ import {
   ComparisonPreview,
   DisclaimerBlock,
   FAQSection,
+  FreeReportsSection,
   HeroSection,
   LandingFinalActions,
   PricingSection,
@@ -19,6 +20,7 @@ export default function HomePage() {
       <ProblemSection />
       <SolutionSection />
       <ReportPreview />
+      <FreeReportsSection />
       <WidgetShowcase />
       <ComparisonPreview />
       <PricingSection />

@@ -78,6 +78,7 @@ const europeStocks = [
   ["MBG.DE", "Mercedes-Benz Group", "Xetra", "Allemagne", "Automobile"],
   ["ADS.DE", "Adidas", "Xetra", "Allemagne", "Consommation"],
   ["RMS.PA", "Hermès", "Euronext Paris", "France", "Luxe"],
+  ["LVMH", "LVMH", "Euronext Paris", "France", "Luxe"],
   ["MC.PA", "LVMH", "Euronext Paris", "France", "Luxe"],
   ["OR.PA", "L'Oréal", "Euronext Paris", "France", "Luxe"],
   ["CDI.PA", "Christian Dior", "Euronext Paris", "France", "Luxe"],

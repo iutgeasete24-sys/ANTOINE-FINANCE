@@ -5,6 +5,7 @@ import {
   ArrowRight,
   BarChart3,
   CheckCircle2,
+  FileText,
   Gauge,
   GitCompare,
   HelpCircle,
@@ -38,6 +39,14 @@ interface WidgetItem {
 interface FAQItem {
   question: string;
   answer: string;
+}
+
+interface FreeReportItem {
+  ticker: string;
+  company: string;
+  sector: string;
+  href: string;
+  indicators: string[];
 }
 
 const reportItems: ReportItem[] = [
@@ -79,6 +88,30 @@ const widgets: WidgetItem[] = [
   { label: "Dividendes", icon: Layers3, detail: "Rendement et soutenabilité." },
   { label: "Risques", icon: ShieldCheck, detail: "Dette, cyclicité et visibilité." },
   { label: "Portefeuille", icon: PieChart, detail: "Poids, exposition et concentration." }
+];
+
+const freeReports: FreeReportItem[] = [
+  {
+    ticker: "ASML",
+    company: "ASML Holding",
+    sector: "Semi-conducteurs",
+    href: "/report/ASML",
+    indicators: ["ROIC", "Marge opérationnelle", "Valorisation"]
+  },
+  {
+    ticker: "NVDA",
+    company: "Nvidia",
+    sector: "Semi-conducteurs",
+    href: "/report/NVDA",
+    indicators: ["Croissance", "Free cash-flow", "Risques"]
+  },
+  {
+    ticker: "LVMH",
+    company: "LVMH",
+    sector: "Luxe",
+    href: "/report/LVMH",
+    indicators: ["Marge", "Dette", "Sources disponibles"]
+  }
 ];
 
 const trustItems = [
@@ -221,6 +254,58 @@ export function ReportPreview() {
             detail={item.detail}
             tone={item.tone}
           />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function FreeReportsSection() {
+  return (
+    <section className="mt-8">
+      <LandingSectionHeader
+        eyebrow="Rapports exemples gratuits"
+        title="Essayez un rapport gratuit"
+        description="Ouvrez un rapport complet pour voir la méthode, les widgets personnalisés et les données indiquées quand elles sont indisponibles."
+      />
+      <div className="mt-4 space-y-3">
+        {freeReports.map((report) => (
+          <LandingCard key={report.ticker} className="rounded-2xl">
+            <div className="flex items-start gap-3">
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-mint/12 text-mint">
+                <FileText size={20} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-bold uppercase tracking-normal text-mint">
+                  Rapport {report.ticker}
+                </p>
+                <h3 className="mt-1 text-lg font-black text-ink">{report.company}</h3>
+                <p className="mt-1 text-sm font-semibold text-graphite">
+                  {report.sector}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-4 grid grid-cols-1 gap-2">
+              {report.indicators.map((indicator) => (
+                <p
+                  key={indicator}
+                  className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/[0.06] px-3 py-2 text-xs font-bold text-graphite"
+                >
+                  <CheckCircle2 size={15} className="shrink-0 text-mint" />
+                  {indicator}
+                </p>
+              ))}
+            </div>
+
+            <Link
+              href={report.href}
+              className="tap-feedback mt-4 flex h-11 items-center justify-center gap-2 rounded-2xl bg-ink text-sm font-black text-night shadow-glow"
+            >
+              Voir le rapport
+              <ArrowRight size={16} />
+            </Link>
+          </LandingCard>
         ))}
       </div>
     </section>
