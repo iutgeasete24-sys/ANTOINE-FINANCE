@@ -16,6 +16,7 @@ import {
   TrendingUp
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { DataTransparencyCard } from "@/components/DataTransparencyCard";
 import { PersonalizedAnalysisWidgets } from "@/components/PersonalizedAnalysisWidgets";
 import { ScoreRing } from "@/components/ScoreRing";
 import { SignalBadge } from "@/components/SignalBadge";
@@ -341,6 +342,8 @@ export default async function ReportPage({ params }: ReportPageProps) {
           />
         </div>
       </header>
+
+      <DataTransparencyCard analysis={analysis} />
 
       <PersonalizedAnalysisWidgets analysis={analysis} />
 
