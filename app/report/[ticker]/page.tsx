@@ -19,6 +19,7 @@ import type { LucideIcon } from "lucide-react";
 import { PersonalizedAnalysisWidgets } from "@/components/PersonalizedAnalysisWidgets";
 import { ScoreRing } from "@/components/ScoreRing";
 import { SignalBadge } from "@/components/SignalBadge";
+import { WatchButton } from "@/components/WatchButton";
 import { mockStocks } from "@/data/mockStocks";
 import { getStockAnalysis } from "@/lib/free-data";
 import { analyzeStock } from "@/lib/scoring";
@@ -315,7 +316,10 @@ export default async function ReportPage({ params }: ReportPageProps) {
               {analysis.ticker} · {analysis.country} · {analysis.sector}
             </p>
           </div>
-          <ScoreRing score={analysis.score} signal={signal} size="sm" />
+          <div className="flex shrink-0 items-center gap-3">
+            <ScoreRing score={analysis.score} signal={signal} size="sm" />
+            <WatchButton analysis={analysis} />
+          </div>
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-2">

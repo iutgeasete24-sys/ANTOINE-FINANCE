@@ -153,8 +153,10 @@ export interface WatchlistItem {
   price: number;
   dayChangePercent: number;
   signal: Signal;
+  addedAt?: string;
   sector?: string;
   country?: string;
+  currency?: string;
 }
 
 export interface PortfolioLine {

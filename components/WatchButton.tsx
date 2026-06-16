@@ -25,7 +25,11 @@ export function WatchButton({ analysis }: WatchButtonProps) {
             decision: analysis.decision,
             price: analysis.price,
             dayChangePercent: analysis.dayChangePercent,
-            signal: scoreSignal(analysis.score)
+            signal: scoreSignal(analysis.score),
+            sector: analysis.sector,
+            country: analysis.country,
+            currency: analysis.currency,
+            addedAt: new Date().toISOString()
           }
         ];
 
