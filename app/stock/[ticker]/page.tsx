@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { IndicatorGrid } from "@/components/IndicatorGrid";
+import { PersonalizedAnalysisWidgets } from "@/components/PersonalizedAnalysisWidgets";
 import { ScoreExplanation } from "@/components/ScoreExplanation";
 import { ScoreBlocks } from "@/components/ScoreBlocks";
 import { StockHero } from "@/components/StockHero";
@@ -28,6 +29,7 @@ export default async function StockPage({ params }: StockPageProps) {
         <TickerSearch compact />
       </div>
       <StockHero analysis={analysis} />
+      <PersonalizedAnalysisWidgets analysis={analysis} />
       <SummaryPanel summary={analysis.summary} />
       <ScoreExplanation explanation={analysis.scoreExplanation} />
       <ScoreBlocks blocks={analysis.scoreBlocks} />

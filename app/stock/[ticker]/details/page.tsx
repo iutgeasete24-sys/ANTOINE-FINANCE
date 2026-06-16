@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowLeft, Database } from "lucide-react";
+import { PersonalizedAnalysisWidgets } from "@/components/PersonalizedAnalysisWidgets";
 import { SignalBadge } from "@/components/SignalBadge";
 import { getStockAnalysis } from "@/lib/free-data";
 
@@ -32,6 +33,8 @@ export default async function StockDetailsPage({ params }: StockDetailsPageProps
           Chaque ligne indique sa valeur, son niveau de lecture, son impact sur le score et la source.
         </p>
       </header>
+
+      <PersonalizedAnalysisWidgets analysis={analysis} />
 
       <section className="premium-card mt-5 rounded-3xl p-4">
         <div className="flex items-center gap-2">

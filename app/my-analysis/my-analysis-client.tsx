@@ -5,6 +5,7 @@ import { CheckCircle2, RotateCcw, SlidersHorizontal } from "lucide-react";
 import { SectionCard } from "@/components/ui/SectionCard";
 import {
   analysisProfiles,
+  analysisPreferencesStorageKey,
   analysisWidgets,
   defaultAnalysisProfile,
   profileWidgetPresets,
@@ -12,8 +13,6 @@ import {
   type AnalysisProfile
 } from "@/data/analysisWidgets";
 import { cn } from "@/utils/cn";
-
-const STORAGE_KEY = "antoine-capital-analysis-preferences";
 
 interface StoredAnalysisPreferences {
   profile: AnalysisProfile;
@@ -52,7 +51,7 @@ function readStoredPreferences(): AnalysisPreferences {
     };
   }
 
-  const storedValue = window.localStorage.getItem(STORAGE_KEY);
+  const storedValue = window.localStorage.getItem(analysisPreferencesStorageKey);
 
   if (!storedValue) {
     return {
@@ -92,7 +91,10 @@ export function MyAnalysisClient() {
       updatedAt: new Date().toISOString()
     };
 
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+    window.localStorage.setItem(
+      analysisPreferencesStorageKey,
+      JSON.stringify(preferences)
+    );
   }, [profile, selectedWidgetIds]);
 
   const selectedWidgets = useMemo(
