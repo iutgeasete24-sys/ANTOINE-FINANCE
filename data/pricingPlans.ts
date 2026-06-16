@@ -109,3 +109,4 @@ export const pricingComparisonRows: PricingComparisonRow[] = [
 ];
 
 export const pricingIntentStorageKey = "antoine-capital-pricing-intent";
+export const pricingWaitlistStorageKey = "antoine-capital-pricing-waitlist";

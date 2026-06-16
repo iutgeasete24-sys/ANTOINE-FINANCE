@@ -15,16 +15,43 @@ import {
   pricingComparisonRows,
   pricingIntentStorageKey,
   pricingPlans,
+  pricingWaitlistStorageKey,
   type PricingPlan,
   type PricingPlanId
 } from "@/data/pricingPlans";
 import { cn } from "@/utils/cn";
+
+type InterestProfile = "débutant" | "long terme" | "dividendes" | "croissance" | "avancé";
 
 interface PricingIntent {
   plan: PricingPlanId;
   source: "pricing-page";
   clickedAt: string;
 }
+
+interface WaitlistRequest {
+  email: string;
+  plan: PricingPlanId;
+  profile: InterestProfile;
+  source: "pricing-page";
+  createdAt: string;
+  note: string;
+}
+
+interface PricingStats {
+  plusClicks: number;
+  proClicks: number;
+  localEmails: number;
+}
+
+const ownerEmail = "antoineguichon@gmail.com";
+const interestProfiles: InterestProfile[] = [
+  "débutant",
+  "long terme",
+  "dividendes",
+  "croissance",
+  "avancé"
+];
 
 function recordPricingIntent(plan: PricingPlanId) {
   const nextIntent: PricingIntent = {
@@ -46,12 +73,55 @@ function recordPricingIntent(plan: PricingPlanId) {
   }
 }
 
+function readPricingStats(): PricingStats {
+  if (typeof window === "undefined") {
+    return {
+      plusClicks: 0,
+      proClicks: 0,
+      localEmails: 0
+    };
+  }
+
+  try {
+    const storedIntentsValue = window.localStorage.getItem(pricingIntentStorageKey);
+    const storedWaitlistValue = window.localStorage.getItem(pricingWaitlistStorageKey);
+    const storedIntents = storedIntentsValue ? JSON.parse(storedIntentsValue) : [];
+    const storedWaitlist = storedWaitlistValue ? JSON.parse(storedWaitlistValue) : [];
+    const intents = Array.isArray(storedIntents) ? storedIntents : [];
+    const waitlist = Array.isArray(storedWaitlist) ? storedWaitlist : [];
+
+    return {
+      plusClicks: intents.filter((item) => item?.plan === "plus").length,
+      proClicks: intents.filter((item) => item?.plan === "pro").length,
+      localEmails: waitlist.length
+    };
+  } catch {
+    return {
+      plusClicks: 0,
+      proClicks: 0,
+      localEmails: 0
+    };
+  }
+}
+
 export function PricingClient() {
   const router = useRouter();
   const [interestedPlan, setInterestedPlan] = useState<PricingPlan | null>(null);
+  const [stats, setStats] = useState<PricingStats>({
+    plusClicks: 0,
+    proClicks: 0,
+    localEmails: 0
+  });
+
+  function refreshStats() {
+    if (process.env.NODE_ENV === "development") {
+      setStats(readPricingStats());
+    }
+  }
 
   function handlePlanClick(plan: PricingPlan) {
     recordPricingIntent(plan.id);
+    refreshStats();
 
     if (plan.id === "free") {
       router.push("/my-analysis");
@@ -129,10 +199,25 @@ export function PricingClient() {
         </div>
       </section>
 
+      {process.env.NODE_ENV === "development" && (
+        <section className="premium-card mt-6 rounded-3xl p-4">
+          <p className="text-xs font-bold uppercase tracking-normal text-mint">
+            Mode développement
+          </p>
+          <h2 className="mt-1 text-xl font-black text-ink">Intentions locales</h2>
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            <DevCounter label="Plus" value={stats.plusClicks} />
+            <DevCounter label="Pro" value={stats.proClicks} />
+            <DevCounter label="Emails" value={stats.localEmails} />
+          </div>
+        </section>
+      )}
+
       {interestedPlan && (
         <InterestModal
           plan={interestedPlan}
           onClose={() => setInterestedPlan(null)}
+          onSaved={refreshStats}
         />
       )}
     </main>
@@ -201,11 +286,65 @@ function PlanCard({
 
 function InterestModal({
   plan,
-  onClose
+  onClose,
+  onSaved
 }: {
   plan: PricingPlan;
   onClose: () => void;
+  onSaved: () => void;
 }) {
+  const [email, setEmail] = useState("");
+  const [profile, setProfile] = useState<InterestProfile>("long terme");
+  const [status, setStatus] = useState("");
+  const canSubmit = email.trim().includes("@");
+
+  function buildMailtoHref() {
+    const subject = encodeURIComponent(`Intérêt pour ${plan.name}`);
+    const body = encodeURIComponent(
+      [
+        "Bonjour Antoine,",
+        "",
+        `Je souhaite être prévenu en priorité pour l'offre ${plan.name}.`,
+        `Email : ${email.trim()}`,
+        `Profil : ${profile}`,
+        "",
+        "Note : aucun paiement n'a été effectué."
+      ].join("\n")
+    );
+
+    return `mailto:${ownerEmail}?subject=${subject}&body=${body}`;
+  }
+
+  function saveLocally() {
+    if (!canSubmit) {
+      setStatus("Ajoutez un email valide avant d’enregistrer la demande.");
+      return;
+    }
+
+    const request: WaitlistRequest = {
+      email: email.trim(),
+      plan: plan.id,
+      profile,
+      source: "pricing-page",
+      createdAt: new Date().toISOString(),
+      note: "Demande stockée uniquement dans le localStorage de ce navigateur."
+    };
+
+    try {
+      const storedValue = window.localStorage.getItem(pricingWaitlistStorageKey);
+      const storedRequests = storedValue ? JSON.parse(storedValue) : [];
+      const requests = Array.isArray(storedRequests) ? storedRequests : [];
+      window.localStorage.setItem(
+        pricingWaitlistStorageKey,
+        JSON.stringify([...requests, request].slice(-100))
+      );
+      setStatus("Demande enregistrée localement sur ce navigateur uniquement.");
+      onSaved();
+    } catch {
+      setStatus("Impossible d’enregistrer localement cette demande.");
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-[70] grid place-items-end bg-black/55 p-3 backdrop-blur-md sm:place-items-center">
       <div className="w-full max-w-md rounded-3xl border border-white/15 bg-night/90 p-4 shadow-soft">
@@ -219,7 +358,7 @@ function InterestModal({
                 Bientôt disponible
               </p>
               <h2 className="mt-1 text-xl font-black text-ink">
-                Intérêt enregistré pour {plan.name}
+                L’offre arrive bientôt.
               </h2>
             </div>
           </div>
@@ -234,26 +373,87 @@ function InterestModal({
         </div>
 
         <p className="mt-4 text-sm font-semibold leading-relaxed text-graphite">
-          Aucun paiement n’a été lancé. Ce clic est simplement sauvegardé dans ce
-          navigateur pour mesurer l’intérêt manuellement.
+          Laissez votre email pour être prévenu en priorité. Aucun paiement n’est
+          demandé et aucun accès immédiat n’est promis.
         </p>
 
+        <div className="mt-4 space-y-3">
+          <label className="block">
+            <span className="text-xs font-black uppercase text-graphite/70">
+              Email
+            </span>
+            <input
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="vous@example.com"
+              className="field"
+            />
+          </label>
+
+          <label className="block">
+            <span className="text-xs font-black uppercase text-graphite/70">
+              Profil
+            </span>
+            <select
+              value={profile}
+              onChange={(event) => setProfile(event.target.value as InterestProfile)}
+              className="field"
+            >
+              {interestProfiles.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <p className="mt-3 rounded-2xl border border-white/10 bg-white/[0.06] p-3 text-xs font-semibold leading-relaxed text-graphite">
+          Sans backend, vous pouvez ouvrir un email prérempli vers Antoine ou stocker
+          cette demande localement. Le stockage local reste uniquement sur cet appareil.
+        </p>
+
+        {status && (
+          <p className="mt-3 rounded-2xl border border-mint/20 bg-mint/10 p-3 text-xs font-bold text-mint">
+            {status}
+          </p>
+        )}
+
         <div className="mt-4 grid grid-cols-1 gap-3">
+          <a
+            href={canSubmit ? buildMailtoHref() : undefined}
+            onClick={(event) => {
+              if (!canSubmit) {
+                event.preventDefault();
+                setStatus("Ajoutez un email valide avant d’ouvrir le mail prérempli.");
+              }
+            }}
+            className={cn(
+              "tap-feedback flex h-12 items-center justify-center rounded-2xl text-sm font-black shadow-glow",
+              canSubmit ? "bg-ink text-night" : "bg-ink/50 text-night/60"
+            )}
+          >
+            Ouvrir le mail prérempli
+          </a>
           <button
             type="button"
-            onClick={onClose}
-            className="tap-feedback flex h-12 items-center justify-center rounded-2xl bg-ink text-sm font-black text-night shadow-glow"
-          >
-            Continuer
-          </button>
-          <Link
-            href="/my-analysis"
+            onClick={saveLocally}
             className="tap-feedback flex h-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.07] text-sm font-black text-ink"
           >
-            Personnaliser ma grille
-          </Link>
+            Stocker localement
+          </button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function DevCounter({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3 text-center">
+      <p className="text-2xl font-black text-ink">{value}</p>
+      <p className="mt-1 text-[11px] font-black uppercase text-graphite">{label}</p>
     </div>
   );
 }
