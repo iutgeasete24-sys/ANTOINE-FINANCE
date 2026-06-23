@@ -72,4 +72,5 @@ npm run build
 ## Avertissement
 
 Les scores servent à organiser l'analyse avec les données gratuites disponibles, parfois différées ou partielles. Ils ne remplacent pas une recherche personnelle, un conseiller financier ou une décision d'investissement indépendante.
+
 # ANTOINE-FINANCE

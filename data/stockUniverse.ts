@@ -65,7 +65,13 @@ const usMegaCaps = [
 
 const europeStocks = [
   ["ASML", "ASML Holding", "Euronext Amsterdam", "Pays-Bas", "Semi-conducteurs"],
-  ["ASML.AS", "ASML Holding Amsterdam", "Euronext Amsterdam", "Pays-Bas", "Semi-conducteurs"],
+  [
+    "ASML.AS",
+    "ASML Holding Amsterdam",
+    "Euronext Amsterdam",
+    "Pays-Bas",
+    "Semi-conducteurs"
+  ],
   ["ASMI.AS", "ASM International", "Euronext Amsterdam", "Pays-Bas", "Semi-conducteurs"],
   ["NVO", "Novo Nordisk ADR", "NYSE", "Danemark", "Santé"],
   ["NOVO-B.CO", "Novo Nordisk", "Nasdaq Copenhagen", "Danemark", "Santé"],
@@ -139,7 +145,13 @@ const etfs = [
   ["PAEEM.PA", "Amundi MSCI Emerging Markets", "Euronext Paris", "France", "ETF Monde"],
   ["EXS1.DE", "iShares Core DAX", "Xetra", "Allemagne", "ETF Europe"],
   ["VUSA.L", "Vanguard S&P 500", "London Stock Exchange", "Royaume-Uni", "ETF S&P 500"],
-  ["CSPX.L", "iShares Core S&P 500", "London Stock Exchange", "Royaume-Uni", "ETF S&P 500"],
+  [
+    "CSPX.L",
+    "iShares Core S&P 500",
+    "London Stock Exchange",
+    "Royaume-Uni",
+    "ETF S&P 500"
+  ],
   ["EQQQ.PA", "Invesco Nasdaq 100", "Euronext Paris", "France", "ETF Nasdaq 100"],
   ["CAC.PA", "ETF CAC 40", "Euronext Paris", "France", "ETF France"]
 ];
@@ -351,16 +363,23 @@ const etfMetadata: Record<string, Partial<StockUniverseItem>> = {
 
 function normalizeSector(rawSector: string, name: string, type: "Action" | "ETF") {
   if (type === "ETF" || rawSector.startsWith("ETF")) return "ETF";
-  if (["Semi-conducteurs", "Logiciels", "Technologie"].includes(rawSector)) return "Technologie";
+  if (["Semi-conducteurs", "Logiciels", "Technologie"].includes(rawSector))
+    return "Technologie";
   if (rawSector === "Communication") return "Services de communication";
   if (rawSector === "Automobile") return "Automobile";
   if (rawSector === "Distribution") return "Consommation discrétionnaire";
   if (rawSector === "Consommation") return "Consommation défensive";
-  if (rawSector === "Services") return name.includes("Engie") || name.includes("Veolia") ? "Utilities" : "Industrie";
+  if (rawSector === "Services")
+    return name.includes("Engie") || name.includes("Veolia") ? "Utilities" : "Industrie";
   return rawSector;
 }
 
-function inferSubSector(ticker: string, name: string, rawSector: string, type: "Action" | "ETF") {
+function inferSubSector(
+  ticker: string,
+  name: string,
+  rawSector: string,
+  type: "Action" | "ETF"
+) {
   if (type === "ETF") return rawSector;
   if (rawSector === "Semi-conducteurs") return "Semi-conducteurs";
   if (rawSector === "Logiciels") return name.includes("Cloud") ? "Cloud" : "Logiciels";
@@ -370,8 +389,23 @@ function inferSubSector(ticker: string, name: string, rawSector: string, type: "
     return "Intelligence artificielle";
   }
   if (rawSector === "Santé") {
-    if (["LLY", "NVO", "NOVO-B.CO", "SAN.PA", "MRK", "PFE", "ABBV", "JNJ", "NOVN.SW", "ROG.SW"].includes(ticker)) return "Pharmaceutique";
-    if (["AMGN", "BIIB", "GILD", "VRTX", "REGN"].includes(ticker)) return "Biotechnologie";
+    if (
+      [
+        "LLY",
+        "NVO",
+        "NOVO-B.CO",
+        "SAN.PA",
+        "MRK",
+        "PFE",
+        "ABBV",
+        "JNJ",
+        "NOVN.SW",
+        "ROG.SW"
+      ].includes(ticker)
+    )
+      return "Pharmaceutique";
+    if (["AMGN", "BIIB", "GILD", "VRTX", "REGN"].includes(ticker))
+      return "Biotechnologie";
     if (["SYK", "MDT", "BSX", "ISRG", "EL.PA"].includes(ticker)) return "Medtech";
     if (["UNH", "ELV", "CI", "HUM"].includes(ticker)) return "Assurance santé";
     return "Services de santé";
@@ -404,7 +438,8 @@ function inferSubSector(ticker: string, name: string, rawSector: string, type: "
     return "Constructeurs automobiles";
   }
   if (rawSector === "Distribution") return "Distribution";
-  if (rawSector === "Communication") return name.includes("Alphabet") ? "Internet" : "Médias";
+  if (rawSector === "Communication")
+    return name.includes("Alphabet") ? "Internet" : "Médias";
   if (rawSector === "Consommation") {
     if (["OR.PA", "EL"].includes(ticker)) return "Cosmétiques";
     if (["KO", "PEP", "RI.PA"].includes(ticker)) return "Boissons";
@@ -412,14 +447,21 @@ function inferSubSector(ticker: string, name: string, rawSector: string, type: "
     if (ticker === "MCD" || ticker === "SBUX") return "Restauration";
     return "Produits ménagers";
   }
-  if (rawSector === "Matériaux") return name.includes("Air Liquide") ? "Gaz industriels" : "Matériaux";
+  if (rawSector === "Matériaux")
+    return name.includes("Air Liquide") ? "Gaz industriels" : "Matériaux";
   if (rawSector === "Immobilier") return "REIT";
   return rawSector;
 }
 
 function inferCurrency(exchange: string, country: string) {
   if (exchange.includes("NYSE") || exchange.includes("NASDAQ")) return "USD";
-  if (exchange.includes("Paris") || exchange.includes("Amsterdam") || exchange === "Xetra" || exchange.includes("Madrid")) return "EUR";
+  if (
+    exchange.includes("Paris") ||
+    exchange.includes("Amsterdam") ||
+    exchange === "Xetra" ||
+    exchange.includes("Madrid")
+  )
+    return "EUR";
   if (exchange.includes("London")) return "GBP";
   if (exchange.includes("Swiss")) return "CHF";
   if (country === "Canada") return "CAD";

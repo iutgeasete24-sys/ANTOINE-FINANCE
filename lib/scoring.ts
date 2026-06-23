@@ -134,7 +134,9 @@ const blockDefinitions: BlockDefinition[] = [
         max: 7,
         score: (value) => scale(value, 0, 16, 7),
         reason: (value) =>
-          value < 3 ? "progression des bénéfices par action limitée" : "EPS encore perfectible"
+          value < 3
+            ? "progression des bénéfices par action limitée"
+            : "EPS encore perfectible"
       },
       {
         key: "fcfGrowth5Y",
@@ -142,7 +144,9 @@ const blockDefinitions: BlockDefinition[] = [
         max: 4,
         score: (value) => scale(value, 0, 14, 4),
         reason: (value) =>
-          value < 3 ? "croissance du cash-flow libre faible" : "cash-flow libre en progression modérée"
+          value < 3
+            ? "croissance du cash-flow libre faible"
+            : "cash-flow libre en progression modérée"
       },
       {
         key: "shareCountChange",
@@ -228,8 +232,7 @@ const blockDefinitions: BlockDefinition[] = [
         label: "dette nette / EBITDA",
         max: 6,
         score: (value) => inverseScale(value, 4, -1, 6),
-        reason: (value) =>
-          value > 3 ? "endettement élevé" : "dette nette à surveiller"
+        reason: (value) => (value > 3 ? "endettement élevé" : "dette nette à surveiller")
       },
       {
         key: "debtToEquity",
@@ -308,20 +311,32 @@ const blockDefinitions: BlockDefinition[] = [
 function scoreBlock(definition: BlockDefinition, data: RawStockData): ScoreBlock {
   if (definition.key === "moat") {
     const score = clamp(data.moatNote, 0, definition.max);
-    return blockResult(definition, score, [], [], [
-      score >= 7
-        ? "Le positionnement concurrentiel semble solide."
-        : "Le moat reste à confirmer avec des données qualitatives plus fines."
-    ]);
+    return blockResult(
+      definition,
+      score,
+      [],
+      [],
+      [
+        score >= 7
+          ? "Le positionnement concurrentiel semble solide."
+          : "Le moat reste à confirmer avec des données qualitatives plus fines."
+      ]
+    );
   }
 
   if (definition.key === "risks") {
     const score = clamp(data.riskNote, 0, definition.max);
-    return blockResult(definition, score, [], [], [
-      score >= 3.5
-        ? "Les risques identifiés restent maîtrisables."
-        : "Le profil de risque demande une marge de sécurité plus élevée."
-    ]);
+    return blockResult(
+      definition,
+      score,
+      [],
+      [],
+      [
+        score >= 3.5
+          ? "Les risques identifiés restent maîtrisables."
+          : "Le profil de risque demande une marge de sécurité plus élevée."
+      ]
+    );
   }
 
   const availableComponents = definition.components
@@ -669,7 +684,10 @@ function buildSummary(
   };
 }
 
-export function analyzeStock(data: RawStockData, mode: "free" | "local" | "partial" = "local"): StockAnalysis {
+export function analyzeStock(
+  data: RawStockData,
+  mode: "free" | "local" | "partial" = "local"
+): StockAnalysis {
   const source: DataSource =
     data.source ?? (mode === "free" ? "sources gratuites" : "local");
   const blocks = buildScoreBlocks(data);
@@ -701,9 +719,7 @@ export function analyzeStock(data: RawStockData, mode: "free" | "local" | "parti
     scoreExplanation: getScoreExplanation(blocks),
     dataQuality,
     source:
-      source === "local" || source === "données d'exemple"
-        ? "Données locales"
-        : source,
+      source === "local" || source === "données d'exemple" ? "Données locales" : source,
     lastUpdated: dataQuality.lastUpdated,
     mode
   };

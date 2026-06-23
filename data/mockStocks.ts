@@ -227,7 +227,5 @@ export const mockStocks: RawStockData[] = [
 
 export function findMockStock(ticker: string) {
   const normalizedTicker = ticker.trim().toUpperCase();
-  return (
-    mockStocks.find((stock) => stock.ticker === normalizedTicker) ?? mockStocks[0]
-  );
+  return mockStocks.find((stock) => stock.ticker === normalizedTicker) ?? mockStocks[0];
 }

@@ -43,8 +43,10 @@ function diversificationScore(etf: StockUniverseItem) {
 }
 
 function riskLevel(etf: StockUniverseItem): ETFAnalysis["riskLevel"] {
-  if (etf.subSector.includes("Nasdaq") || etf.sector.includes("Technologie")) return "Élevé";
-  if (etf.subSector.includes("Monde") || etf.indexTracked?.includes("MSCI World")) return "Modéré";
+  if (etf.subSector.includes("Nasdaq") || etf.sector.includes("Technologie"))
+    return "Élevé";
+  if (etf.subSector.includes("Monde") || etf.indexTracked?.includes("MSCI World"))
+    return "Modéré";
   return "Modéré";
 }
 
@@ -70,7 +72,8 @@ function summaryForETF(etf: StockUniverseItem) {
 
 export function analyzeETF(ticker: string): ETFAnalysis | null {
   const etf = stockUniverse.find(
-    (item) => item.ticker.toUpperCase() === ticker.toUpperCase() && item.assetType === "etf"
+    (item) =>
+      item.ticker.toUpperCase() === ticker.toUpperCase() && item.assetType === "etf"
   );
   if (!etf) return null;
 
@@ -101,9 +104,13 @@ export function analyzeETF(ticker: string): ETFAnalysis | null {
     },
     {
       label: "Performance historique",
-      score: etf.indexTracked?.includes("MSCI World") || etf.indexTracked?.includes("S&P 500") ? 12 : 10,
+      score:
+        etf.indexTracked?.includes("MSCI World") || etf.indexTracked?.includes("S&P 500")
+          ? 12
+          : 10,
       max: 15,
-      explanation: "Lecture indicative liée à l’indice suivi, sans prédire la performance future."
+      explanation:
+        "Lecture indicative liée à l’indice suivi, sans prédire la performance future."
     },
     {
       label: "Risque / volatilité",
@@ -136,7 +143,8 @@ export function analyzeETF(ticker: string): ETFAnalysis | null {
     score,
     blocks,
     riskLevel: risk,
-    horizon: risk === "Élevé" ? "Long terme, avec tolérance à la volatilité" : "Long terme",
+    horizon:
+      risk === "Élevé" ? "Long terme, avec tolérance à la volatilité" : "Long terme",
     investorType: etf.indexTracked?.includes("MSCI World")
       ? "débutant / long terme"
       : etf.indexTracked?.includes("Nasdaq")

@@ -113,7 +113,9 @@ export function StockHero({ analysis }: StockHeroProps) {
         </div>
         <div className="flex items-center gap-2 text-amber">
           <AlertTriangle size={15} />
-          <span>Données gratuites, potentiellement différées. Utilisation personnelle.</span>
+          <span>
+            Données gratuites, potentiellement différées. Utilisation personnelle.
+          </span>
         </div>
       </div>
     </section>

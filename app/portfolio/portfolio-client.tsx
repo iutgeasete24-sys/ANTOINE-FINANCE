@@ -48,7 +48,9 @@ export function PortfolioClient() {
 
   const portfolio = useMemo(() => enrichPortfolio(lines), [lines]);
   const availableBrokers = Array.from(
-    new Set([...brokers, ...lines.map((line) => line.broker), customBroker].filter(Boolean))
+    new Set(
+      [...brokers, ...lines.map((line) => line.broker), customBroker].filter(Boolean)
+    )
   );
 
   useEffect(() => {
@@ -70,6 +72,13 @@ export function PortfolioClient() {
     }, 0);
 
     return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("add") !== "1") return;
+
+    openNewLineModal();
+    window.history.replaceState(null, "", window.location.pathname);
   }, []);
 
   useEffect(() => {
@@ -227,10 +236,22 @@ export function PortfolioClient() {
   return (
     <main>
       <header className="pt-2">
-        <p className="text-xs font-bold uppercase tracking-normal text-mint">
-          Portefeuille
-        </p>
-        <h1 className="mt-1 text-3xl font-black text-ink">Votre allocation</h1>
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-normal text-mint">
+              Portefeuille
+            </p>
+            <h1 className="mt-1 text-3xl font-black text-ink">Votre allocation</h1>
+          </div>
+          <button
+            type="button"
+            onClick={openNewLineModal}
+            className="tap-feedback inline-flex min-h-11 shrink-0 items-center gap-2 rounded-2xl bg-ink px-3 text-sm font-black text-night shadow-glow"
+          >
+            <Plus size={17} />
+            Ajouter
+          </button>
+        </div>
         <p className="mt-2 text-sm font-semibold leading-relaxed text-graphite">
           Valeur, performance et concentration en un seul endroit.
         </p>
@@ -287,12 +308,16 @@ export function PortfolioClient() {
         <StatCard
           label="Meilleure ligne"
           value={portfolio.bestLine?.ticker ?? "-"}
-          detail={portfolio.bestLine ? formatPercent(portfolio.bestLine.gainPercent) : "-"}
+          detail={
+            portfolio.bestLine ? formatPercent(portfolio.bestLine.gainPercent) : "-"
+          }
         />
         <StatCard
           label="Pire ligne"
           value={portfolio.worstLine?.ticker ?? "-"}
-          detail={portfolio.worstLine ? formatPercent(portfolio.worstLine.gainPercent) : "-"}
+          detail={
+            portfolio.worstLine ? formatPercent(portfolio.worstLine.gainPercent) : "-"
+          }
         />
       </section>
 
@@ -313,7 +338,7 @@ export function PortfolioClient() {
           <button
             type="button"
             onClick={resetDemo}
-            className="tap-feedback grid h-10 w-10 place-items-center rounded-xl bg-white/[0.08] text-graphite shadow-soft"
+            className="tap-feedback grid h-11 w-11 place-items-center rounded-xl bg-white/[0.08] text-graphite shadow-soft"
             aria-label="Réinitialiser les exemples"
             title="Réinitialiser les exemples"
           >
@@ -322,10 +347,7 @@ export function PortfolioClient() {
         </div>
         <div className="space-y-3">
           {portfolio.lines.map((line) => (
-            <article
-              key={line.id}
-              className="premium-card rounded-2xl p-4"
-            >
+            <article key={line.id} className="premium-card rounded-2xl p-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-lg font-black text-ink">{line.ticker}</p>
@@ -337,7 +359,7 @@ export function PortfolioClient() {
                   <button
                     type="button"
                     onClick={() => startEdit(line)}
-                    className="tap-feedback grid h-9 w-9 place-items-center rounded-xl bg-white/[0.08] text-graphite"
+                    className="tap-feedback grid h-11 w-11 place-items-center rounded-xl bg-white/[0.08] text-graphite"
                     aria-label={`Modifier ${line.ticker}`}
                     title={`Modifier ${line.ticker}`}
                   >
@@ -346,7 +368,7 @@ export function PortfolioClient() {
                   <button
                     type="button"
                     onClick={() => removeLine(line.id)}
-                    className="tap-feedback grid h-9 w-9 place-items-center rounded-xl bg-white/[0.08] text-graphite"
+                    className="tap-feedback grid h-11 w-11 place-items-center rounded-xl bg-white/[0.08] text-graphite"
                     aria-label={`Retirer ${line.ticker}`}
                     title={`Retirer ${line.ticker}`}
                   >
@@ -374,9 +396,7 @@ export function PortfolioClient() {
       </section>
 
       <section className="mt-6">
-        <p className="text-xs font-bold uppercase tracking-normal text-mint">
-          Brokers
-        </p>
+        <p className="text-xs font-bold uppercase tracking-normal text-mint">Brokers</p>
         <h2 className="text-xl font-black text-ink">Comptes disponibles</h2>
         <div className="premium-card mt-3 rounded-2xl p-4">
           <div className="grid grid-cols-[minmax(0,1fr)_2.75rem] items-center gap-2">
@@ -428,7 +448,7 @@ export function PortfolioClient() {
           className="tap-feedback flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.07] px-4 text-sm font-black text-ink shadow-soft transition hover:bg-white/[0.11]"
         >
           <Plus size={18} />
-          Ajouter une nouvelle ligne
+          Ajouter
         </button>
       </section>
 
@@ -478,7 +498,9 @@ export function PortfolioClient() {
                       value: broker,
                       label: broker
                     }))}
-                    onChange={(value) => setDraft({ ...draft, broker: value as BrokerName })}
+                    onChange={(value) =>
+                      setDraft({ ...draft, broker: value as BrokerName })
+                    }
                   />
                   {lineErrors.broker && (
                     <p className="mt-1 text-xs font-semibold text-rose">
@@ -489,7 +511,9 @@ export function PortfolioClient() {
                 <Field label="Ticker" error={lineErrors.ticker}>
                   <input
                     value={draft.ticker}
-                    onChange={(event) => setDraft({ ...draft, ticker: event.target.value })}
+                    onChange={(event) =>
+                      setDraft({ ...draft, ticker: event.target.value })
+                    }
                     className="field"
                     placeholder="ASML"
                   />
@@ -505,7 +529,9 @@ export function PortfolioClient() {
                 <Field label="Quantité" error={lineErrors.quantity}>
                   <input
                     value={draft.quantity}
-                    onChange={(event) => setDraft({ ...draft, quantity: event.target.value })}
+                    onChange={(event) =>
+                      setDraft({ ...draft, quantity: event.target.value })
+                    }
                     className="field"
                     inputMode="decimal"
                   />
@@ -531,7 +557,9 @@ export function PortfolioClient() {
                 <Field label="Devise">
                   <input
                     value={draft.currency}
-                    onChange={(event) => setDraft({ ...draft, currency: event.target.value })}
+                    onChange={(event) =>
+                      setDraft({ ...draft, currency: event.target.value })
+                    }
                     className="field"
                     placeholder="EUR"
                   />
@@ -578,7 +606,11 @@ export function PortfolioClient() {
         </div>
       )}
 
-      <Distribution title="Performance par broker" items={portfolio.byBroker} performance />
+      <Distribution
+        title="Performance par broker"
+        items={portfolio.byBroker}
+        performance
+      />
       <Distribution title="Répartition par secteur" items={portfolio.bySector} />
       <Distribution title="Répartition par devise" items={portfolio.byCurrency} />
       <Distribution title="Exposition par pays" items={portfolio.byCountry} />
@@ -628,11 +660,7 @@ function LineMetric({
       <p className="text-xs font-semibold text-graphite/60">{label}</p>
       <p
         className={`mt-1 font-black ${
-          tone === "green"
-            ? "text-mint"
-            : tone === "red"
-              ? "text-rose"
-              : "text-ink"
+          tone === "green" ? "text-mint" : tone === "red" ? "text-rose" : "text-ink"
         }`}
       >
         {value}
@@ -654,7 +682,9 @@ function Field({
     <label className="text-xs font-bold uppercase tracking-normal text-graphite/65">
       <span>{label}</span>
       {children}
-      {error && <span className="mt-1 block text-xs font-semibold text-rose">{error}</span>}
+      {error && (
+        <span className="mt-1 block text-xs font-semibold text-rose">{error}</span>
+      )}
     </label>
   );
 }

@@ -8,19 +8,14 @@ interface ScoreBlocksProps {
 export function ScoreBlocks({ blocks }: ScoreBlocksProps) {
   return (
     <section className="mt-5">
-      <p className="text-xs font-bold uppercase tracking-normal text-mint">
-        Scoring
-      </p>
+      <p className="text-xs font-bold uppercase tracking-normal text-mint">Scoring</p>
       <h2 className="text-xl font-black text-ink">Sous-scores</h2>
       <div className="mt-3 space-y-3">
         {blocks.map((block) => {
           const width = `${Math.round((block.score / block.max) * 100)}%`;
 
           return (
-            <article
-              key={block.key}
-              className="premium-card rounded-2xl p-4"
-            >
+            <article key={block.key} className="premium-card rounded-2xl p-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <h3 className="text-base font-black text-ink">{block.label}</h3>

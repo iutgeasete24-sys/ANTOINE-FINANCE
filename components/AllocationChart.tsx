@@ -32,10 +32,15 @@ export function AllocationChart({ title, items, compact = false }: AllocationCha
           </p>
         </div>
         <div
-          className={cn("grid place-items-center rounded-full", compact ? "h-16 w-16" : "h-20 w-20")}
+          className={cn(
+            "grid place-items-center rounded-full",
+            compact ? "h-16 w-16" : "h-20 w-20"
+          )}
           style={{ background: gradient }}
         >
-          <div className={cn("rounded-full bg-paper", compact ? "h-9 w-9" : "h-12 w-12")} />
+          <div
+            className={cn("rounded-full bg-paper", compact ? "h-9 w-9" : "h-12 w-12")}
+          />
         </div>
       </div>
       <div className="mt-4 space-y-2">

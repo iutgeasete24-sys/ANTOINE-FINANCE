@@ -53,8 +53,7 @@ export const analysisProfiles: AnalysisProfile[] = [
   "Avancé"
 ];
 
-export const analysisPreferencesStorageKey =
-  "antoine-capital-analysis-preferences";
+export const analysisPreferencesStorageKey = "antoine-capital-analysis-preferences";
 
 export const widgetCategories: WidgetCategoryConfig[] = [
   {

@@ -59,12 +59,11 @@ export function WatchlistClient() {
   return (
     <main>
       <header className="pt-2">
-        <p className="text-xs font-bold uppercase tracking-normal text-mint">
-          Watchlist
-        </p>
+        <p className="text-xs font-bold uppercase tracking-normal text-mint">Watchlist</p>
         <h1 className="mt-1 text-3xl font-black text-ink">Actions à suivre</h1>
         <p className="mt-2 text-sm font-medium leading-relaxed text-graphite/70">
-          Ajoutez une société depuis sa fiche ou son rapport pour la garder sous surveillance.
+          Ajoutez une société depuis sa fiche ou son rapport pour la garder sous
+          surveillance.
         </p>
       </header>
 
@@ -116,15 +115,16 @@ export function WatchlistClient() {
               ))}
             </div>
             {sortedItems.map((item) => (
-              <article
-                key={item.ticker}
-                className="premium-card rounded-2xl p-4"
-              >
+              <article key={item.ticker} className="premium-card rounded-2xl p-4">
                 <div className="flex items-start justify-between gap-3">
                   <Link href={`/stock/${item.ticker}`} className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <p className="text-xl font-black text-ink">{item.ticker}</p>
-                      <SignalBadge signal={item.signal} compact label={`${item.score}/100`} />
+                      <SignalBadge
+                        signal={item.signal}
+                        compact
+                        label={`${item.score}/100`}
+                      />
                     </div>
                     <p className="mt-1 truncate text-sm font-medium text-graphite/70">
                       {item.name}

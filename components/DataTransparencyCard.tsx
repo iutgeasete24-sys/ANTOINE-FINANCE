@@ -40,12 +40,13 @@ function displaySources(analysis: StockAnalysis, sources?: DataTransparencySourc
   return [];
 }
 
-export function DataTransparencyCard({
-  analysis,
-  sources
-}: DataTransparencyCardProps) {
-  const availableIndicators = analysis.indicators.filter((indicator) => indicator.isAvailable);
-  const missingIndicators = analysis.indicators.filter((indicator) => !indicator.isAvailable);
+export function DataTransparencyCard({ analysis, sources }: DataTransparencyCardProps) {
+  const availableIndicators = analysis.indicators.filter(
+    (indicator) => indicator.isAvailable
+  );
+  const missingIndicators = analysis.indicators.filter(
+    (indicator) => !indicator.isAvailable
+  );
   const resolvedSources = displaySources(analysis, sources);
   const reliability = reliabilityLabel(analysis.dataQuality.level);
 

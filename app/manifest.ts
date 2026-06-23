@@ -4,7 +4,8 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Antoine Capital Analyzer",
     short_name: "Capital",
-    description: "Application personnelle d'analyse long terme, portefeuille et watchlist.",
+    description:
+      "Application personnelle d'analyse long terme, portefeuille et watchlist.",
     start_url: "/",
     scope: "/",
     display: "standalone",

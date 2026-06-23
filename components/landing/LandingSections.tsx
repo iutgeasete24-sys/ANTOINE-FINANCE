@@ -80,7 +80,11 @@ const reportItems: ReportItem[] = [
 
 const widgets: WidgetItem[] = [
   { label: "Qualité", icon: Gauge, detail: "Rentabilité et avantage concurrentiel." },
-  { label: "Croissance", icon: TrendingUp, detail: "Chiffre d'affaires, bénéfices et cash-flow." },
+  {
+    label: "Croissance",
+    icon: TrendingUp,
+    detail: "Chiffre d'affaires, bénéfices et cash-flow."
+  },
   { label: "Valorisation", icon: BarChart3, detail: "Multiples et niveau d'exigence." },
   { label: "Dividendes", icon: Layers3, detail: "Rendement et soutenabilité." },
   { label: "Risques", icon: ShieldCheck, detail: "Dette, cyclicité et visibilité." },
@@ -163,7 +167,7 @@ export function HeroSection() {
                 Sources gratuites affichées · méthode expliquée
               </p>
             </div>
-            <div className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl bg-mint/12 text-mint">
+            <div className="bg-mint/12 grid h-16 w-16 shrink-0 place-items-center rounded-2xl text-mint">
               <Sparkles size={26} />
             </div>
           </div>
@@ -246,7 +250,7 @@ export function FreeReportsSection() {
         {freeReports.map((report) => (
           <LandingCard key={report.ticker} className="rounded-2xl">
             <div className="flex items-start gap-3">
-              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-mint/12 text-mint">
+              <div className="bg-mint/12 grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-mint">
                 <FileText size={20} />
               </div>
               <div className="min-w-0 flex-1">
@@ -319,7 +323,7 @@ export function ComparisonPreview() {
     <section className="mt-8">
       <LandingCard>
         <div className="flex gap-3">
-          <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-mint/12 text-mint">
+          <div className="bg-mint/12 grid h-11 w-11 shrink-0 place-items-center rounded-2xl text-mint">
             <GitCompare size={21} />
           </div>
           <div>
@@ -432,9 +436,9 @@ export function DisclaimerBlock() {
           <Target size={18} className="mt-0.5 shrink-0" />
           <p className="text-xs font-semibold leading-relaxed">
             Les informations fournies sont générales et pédagogiques. Elles ne constituent
-            pas un conseil en investissement personnalisé, une recommandation d’achat ou de
-            vente, ni une garantie de performance. Investir comporte un risque de perte en
-            capital.
+            pas un conseil en investissement personnalisé, une recommandation d’achat ou
+            de vente, ni une garantie de performance. Investir comporte un risque de perte
+            en capital.
           </p>
         </div>
       </div>

@@ -15,9 +15,7 @@ export function LandingSectionHeader({
   return (
     <div>
       {eyebrow && (
-        <p className="text-xs font-bold uppercase tracking-normal text-mint">
-          {eyebrow}
-        </p>
+        <p className="text-xs font-bold uppercase tracking-normal text-mint">{eyebrow}</p>
       )}
       <h2 className="mt-1 text-2xl font-black leading-tight text-ink">{title}</h2>
       {description && (

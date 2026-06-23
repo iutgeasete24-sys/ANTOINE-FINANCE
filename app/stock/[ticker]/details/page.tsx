@@ -30,7 +30,8 @@ export default async function StockDetailsPage({ params }: StockDetailsPageProps
         </p>
         <h1 className="mt-1 text-3xl font-black">{analysis.ticker}</h1>
         <p className="mt-2 text-sm font-medium leading-relaxed text-graphite">
-          Chaque ligne indique sa valeur, son niveau de lecture, son impact sur le score et la source.
+          Chaque ligne indique sa valeur, son niveau de lecture, son impact sur le score
+          et la source.
         </p>
       </header>
 
@@ -55,10 +56,7 @@ export default async function StockDetailsPage({ params }: StockDetailsPageProps
 
       <section className="mt-5 space-y-3">
         {analysis.indicators.map((indicator) => (
-          <article
-            key={indicator.key}
-            className="premium-card rounded-2xl p-4"
-          >
+          <article key={indicator.key} className="premium-card rounded-2xl p-4">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h2 className="text-base font-black text-ink">{indicator.label}</h2>

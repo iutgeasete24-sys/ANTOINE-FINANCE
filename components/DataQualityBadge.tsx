@@ -23,9 +23,7 @@ export function DataQualityBadge({ dataQuality }: DataQualityBadgeProps) {
     <div className={`rounded-2xl border p-3 ${classes}`}>
       <div className="flex items-center gap-2">
         <Icon size={16} />
-        <p className="text-sm font-black">
-          Qualité des données : {dataQuality.level}
-        </p>
+        <p className="text-sm font-black">Qualité des données : {dataQuality.level}</p>
       </div>
       <p className="mt-1 text-xs font-semibold opacity-80">
         {dataQuality.completenessScore} % des données clés disponibles

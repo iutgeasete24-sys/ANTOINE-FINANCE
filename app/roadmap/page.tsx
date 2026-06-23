@@ -28,12 +28,7 @@ const roadmapStages = [
     icon: CheckCircle2,
     iconClassName: "bg-mint/15 text-mint",
     dotClassName: "bg-mint",
-    items: [
-      "Rapports d’analyse",
-      "Widgets personnalisés",
-      "Comparaison",
-      "Watchlist"
-    ]
+    items: ["Rapports d’analyse", "Widgets personnalisés", "Comparaison", "Watchlist"]
   },
   {
     title: "En cours",
@@ -51,8 +46,7 @@ const roadmapStages = [
   },
   {
     title: "Plus tard",
-    description:
-      "Des pistes à approfondir lorsque la base produit sera plus mature.",
+    description: "Des pistes à approfondir lorsque la base produit sera plus mature.",
     icon: Clock3,
     iconClassName: "bg-white/[0.08] text-graphite",
     dotClassName: "bg-graphite",
@@ -160,12 +154,16 @@ function RoadmapSection({ stage }: { stage: RoadmapStage }) {
   return (
     <SectionCard className="rounded-3xl">
       <div className="flex items-start gap-3">
-        <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl ${stage.iconClassName}`}>
+        <div
+          className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl ${stage.iconClassName}`}
+        >
           <Icon size={20} />
         </div>
         <div>
           <h2 className="text-xl font-black text-ink">{stage.title}</h2>
-          <p className="mt-1 text-sm leading-relaxed text-graphite">{stage.description}</p>
+          <p className="mt-1 text-sm leading-relaxed text-graphite">
+            {stage.description}
+          </p>
         </div>
       </div>
 

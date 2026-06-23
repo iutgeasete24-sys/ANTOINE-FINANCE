@@ -144,15 +144,13 @@ export function PricingClient() {
       </Link>
 
       <header className="premium-card rounded-3xl p-4 shadow-soft">
-        <p className="text-xs font-bold uppercase tracking-normal text-mint">
-          Pricing
-        </p>
+        <p className="text-xs font-bold uppercase tracking-normal text-mint">Pricing</p>
         <h1 className="mt-2 text-4xl font-black leading-tight text-ink">
           Choisissez votre niveau d’analyse.
         </h1>
         <p className="mt-3 text-sm font-semibold leading-relaxed text-graphite">
-          Les offres Plus et Pro sont en test d’intérêt. Aucun paiement réel n’est
-          activé pour le moment.
+          Les offres Plus et Pro sont en test d’intérêt. Aucun paiement réel n’est activé
+          pour le moment.
         </p>
       </header>
 
@@ -192,9 +190,7 @@ export function PricingClient() {
       </section>
 
       <section className="premium-card mt-6 rounded-3xl p-4">
-        <p className="text-xs font-bold uppercase tracking-normal text-mint">
-          FAQ
-        </p>
+        <p className="text-xs font-bold uppercase tracking-normal text-mint">FAQ</p>
         <h2 className="mt-1 text-xl font-black text-ink">Questions fréquentes</h2>
         <div className="mt-4 space-y-3">
           {productFaqs.map((item) => (
@@ -253,13 +249,7 @@ export function PricingClient() {
   );
 }
 
-function PlanCard({
-  plan,
-  onSelect
-}: {
-  plan: PricingPlan;
-  onSelect: () => void;
-}) {
+function PlanCard({ plan, onSelect }: { plan: PricingPlan; onSelect: () => void }) {
   return (
     <article
       className={cn(
@@ -402,15 +392,13 @@ function InterestModal({
         </div>
 
         <p className="mt-4 text-sm font-semibold leading-relaxed text-graphite">
-          Laissez votre email pour être prévenu en priorité. Aucun paiement n’est
-          demandé et aucun accès immédiat n’est promis.
+          Laissez votre email pour être prévenu en priorité. Aucun paiement n’est demandé
+          et aucun accès immédiat n’est promis.
         </p>
 
         <div className="mt-4 space-y-3">
           <label className="block">
-            <span className="text-xs font-black uppercase text-graphite/70">
-              Email
-            </span>
+            <span className="text-xs font-black uppercase text-graphite/70">Email</span>
             <input
               type="email"
               value={email}
@@ -421,9 +409,7 @@ function InterestModal({
           </label>
 
           <label className="block">
-            <span className="text-xs font-black uppercase text-graphite/70">
-              Profil
-            </span>
+            <span className="text-xs font-black uppercase text-graphite/70">Profil</span>
             <select
               value={profile}
               onChange={(event) => setProfile(event.target.value as InterestProfile)}

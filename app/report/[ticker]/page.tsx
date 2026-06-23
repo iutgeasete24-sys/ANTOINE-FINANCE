@@ -57,10 +57,7 @@ const blockLabels: Partial<Record<ScoreBlockKey, string>> = {
   risks: "Risques"
 };
 
-function getIndicator(
-  analysis: StockAnalysis,
-  key: keyof FinancialIndicators
-) {
+function getIndicator(analysis: StockAnalysis, key: keyof FinancialIndicators) {
   return analysis.indicators.find((indicator) => indicator.key === key) ?? null;
 }
 
@@ -74,7 +71,9 @@ function indicatorValue(indicator: IndicatorView | null) {
 
 function indicatorDetail(indicator: IndicatorView | null, fallback: string) {
   if (!indicator) return fallback;
-  return indicator.isAvailable ? indicator.explanation : `${fallback} Donnée indisponible.`;
+  return indicator.isAvailable
+    ? indicator.explanation
+    : `${fallback} Donnée indisponible.`;
 }
 
 function unavailableMetric(label: string, detail: string): ReportMetric {
@@ -150,15 +149,15 @@ function sectionIndicators(
   analysis: StockAnalysis,
   keys: Array<keyof FinancialIndicators>
 ) {
-  return keys.map((key) => getIndicator(analysis, key)).filter(Boolean) as IndicatorView[];
+  return keys
+    .map((key) => getIndicator(analysis, key))
+    .filter(Boolean) as IndicatorView[];
 }
 
 function sectorComparisons(analysis: StockAnalysis) {
   return mockStocks
     .filter(
-      (stock) =>
-        stock.sector === analysis.sector &&
-        stock.ticker !== analysis.ticker
+      (stock) => stock.sector === analysis.sector && stock.ticker !== analysis.ticker
     )
     .map((stock) => analyzeStock(stock))
     .slice(0, 3);
@@ -337,11 +336,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
             label="Fiabilité"
             value={analysis.dataQuality.level}
           />
-          <MetaPill
-            icon={FileText}
-            label="Source"
-            value={analysis.dataQuality.source}
-          />
+          <MetaPill icon={FileText} label="Source" value={analysis.dataQuality.source} />
         </div>
       </header>
 
@@ -351,10 +346,16 @@ export default async function ReportPage({ params }: ReportPageProps) {
 
       <ReportSection title="Résumé en 30 secondes" icon={Gauge}>
         <div className="mt-4 space-y-3">
-          <SummaryItem title="Activité" text={`${analysis.name} est classée dans le secteur ${analysis.sector}, avec une exposition géographique principale : ${analysis.country}.`} />
+          <SummaryItem
+            title="Activité"
+            text={`${analysis.name} est classée dans le secteur ${analysis.sector}, avec une exposition géographique principale : ${analysis.country}.`}
+          />
           <SummaryList title="Points forts" items={analysis.summary.strengths} />
           <SummaryList title="Points de vigilance" items={analysis.summary.weaknesses} />
-          <SummaryItem title="Lecture générale neutre" text={analysis.summary.conclusion} />
+          <SummaryItem
+            title="Lecture générale neutre"
+            text={analysis.summary.conclusion}
+          />
         </div>
       </ReportSection>
 
@@ -362,8 +363,8 @@ export default async function ReportPage({ params }: ReportPageProps) {
         <p className="mt-4 text-sm font-semibold leading-relaxed text-graphite">
           Description détaillée du business model indisponible dans les données actuelles.
           Le rapport peut seulement confirmer que {analysis.name} appartient au secteur{" "}
-          {analysis.sector} et que l’analyse ci-dessous repose sur les indicateurs financiers
-          disponibles.
+          {analysis.sector} et que l’analyse ci-dessous repose sur les indicateurs
+          financiers disponibles.
         </p>
       </ReportSection>
 
@@ -477,7 +478,10 @@ export default async function ReportPage({ params }: ReportPageProps) {
       <ReportSection title="Sources et données manquantes" icon={Database}>
         <div className="mt-4 grid grid-cols-1 gap-3">
           <SourceLine label="Source principale" value={analysis.dataQuality.source} />
-          <SourceLine label="Dernière mise à jour" value={analysis.dataQuality.lastUpdated} />
+          <SourceLine
+            label="Dernière mise à jour"
+            value={analysis.dataQuality.lastUpdated}
+          />
           <SourceLine
             label="Complétude"
             value={`${analysis.dataQuality.completenessScore} % des données clés disponibles`}
@@ -489,7 +493,8 @@ export default async function ReportPage({ params }: ReportPageProps) {
           </div>
         ) : (
           <p className="mt-4 rounded-2xl border border-white/10 bg-white/[0.06] p-3 text-sm font-semibold text-graphite">
-            Aucune indisponibilité majeure n’est signalée dans les données clés du rapport.
+            Aucune indisponibilité majeure n’est signalée dans les données clés du
+            rapport.
           </p>
         )}
       </ReportSection>
@@ -499,9 +504,9 @@ export default async function ReportPage({ params }: ReportPageProps) {
           <AlertTriangle size={18} className="mt-0.5 shrink-0" />
           <p className="text-xs font-semibold leading-relaxed">
             Les informations fournies sont générales et pédagogiques. Elles ne constituent
-            pas un conseil en investissement personnalisé, une recommandation d’achat ou de
-            vente, ni une garantie de performance. Investir comporte un risque de perte en
-            capital.
+            pas un conseil en investissement personnalisé, une recommandation d’achat ou
+            de vente, ni une garantie de performance. Investir comporte un risque de perte
+            en capital.
           </p>
         </div>
       </section>

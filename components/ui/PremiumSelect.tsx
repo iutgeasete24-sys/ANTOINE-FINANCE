@@ -51,7 +51,7 @@ export function PremiumSelect({
       </button>
 
       {open && (
-        <div className="absolute left-0 right-0 top-[calc(100%+0.45rem)] z-50 max-h-72 overflow-y-auto rounded-2xl border border-white/10 bg-paper/95 p-2 shadow-soft backdrop-blur-2xl animate-soft-enter">
+        <div className="animate-soft-enter absolute left-0 right-0 top-[calc(100%+0.45rem)] z-50 max-h-72 overflow-y-auto rounded-2xl border border-white/10 bg-paper/95 p-2 shadow-soft backdrop-blur-2xl">
           {options.map((option) => {
             const active = option.value === value;
             return (
@@ -69,7 +69,9 @@ export function PremiumSelect({
                 )}
               >
                 <span className="min-w-0">
-                  <span className="block truncate text-sm font-black">{option.label}</span>
+                  <span className="block truncate text-sm font-black">
+                    {option.label}
+                  </span>
                   {option.description && (
                     <span className="mt-0.5 block truncate text-xs font-semibold text-graphite">
                       {option.description}

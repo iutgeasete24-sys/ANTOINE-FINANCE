@@ -6,9 +6,13 @@ interface SectionCardProps {
   as?: "section" | "article" | "div";
 }
 
-export function SectionCard({ children, className, as: Tag = "section" }: SectionCardProps) {
+export function SectionCard({
+  children,
+  className,
+  as: Tag = "section"
+}: SectionCardProps) {
   return (
-    <Tag className={cn("premium-card rounded-2xl p-4 animate-soft-enter", className)}>
+    <Tag className={cn("premium-card animate-soft-enter rounded-2xl p-4", className)}>
       {children}
     </Tag>
   );

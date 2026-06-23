@@ -38,10 +38,15 @@ export default async function ETFPage({ params }: ETFPageProps) {
               {etf.name}
             </h1>
             <p className="mt-2 text-sm font-semibold text-graphite">
-              {etf.indexTracked ?? etf.subSector} · {etf.geographicExposure ?? etf.country}
+              {etf.indexTracked ?? etf.subSector} ·{" "}
+              {etf.geographicExposure ?? etf.country}
             </p>
           </div>
-          <ScoreRing score={analysis.score} signal={etfScoreSignal(analysis.score)} size="sm" />
+          <ScoreRing
+            score={analysis.score}
+            signal={etfScoreSignal(analysis.score)}
+            size="sm"
+          />
         </div>
 
         <p className="mt-5 rounded-2xl bg-white/[0.07] p-3 text-sm font-semibold leading-relaxed text-graphite">
@@ -52,7 +57,12 @@ export default async function ETFPage({ params }: ETFPageProps) {
           <Fact label="Risque" value={analysis.riskLevel} />
           <Fact label="Horizon" value={analysis.horizon} />
           <Fact label="Investisseur" value={analysis.investorType} />
-          <Fact label="Frais" value={etf.expenseRatio === undefined ? "N/D" : `${etf.expenseRatio.toFixed(2)} %`} />
+          <Fact
+            label="Frais"
+            value={
+              etf.expenseRatio === undefined ? "N/D" : `${etf.expenseRatio.toFixed(2)} %`
+            }
+          />
         </div>
       </section>
 
@@ -63,12 +73,16 @@ export default async function ETFPage({ params }: ETFPageProps) {
           <InfoLine label="Classe d’actifs" value={etf.assetClass ?? "Actions"} />
           <InfoLine label="Devise" value={etf.currency} />
           <InfoLine label="Politique" value={etf.distributionPolicy ?? "Non renseigné"} />
-          <InfoLine label="Positions" value={etf.positionsCount ? String(etf.positionsCount) : "Non renseigné"} />
+          <InfoLine
+            label="Positions"
+            value={etf.positionsCount ? String(etf.positionsCount) : "Non renseigné"}
+          />
         </InfoCard>
 
         <InfoCard icon={<Globe2 size={18} />} title="Top holdings">
           <p className="text-sm font-semibold leading-relaxed text-graphite">
-            {etf.holdingsSummary ?? "Composition détaillée indisponible avec les données actuelles."}
+            {etf.holdingsSummary ??
+              "Composition détaillée indisponible avec les données actuelles."}
           </p>
           {etf.topHoldings && (
             <div className="mt-3 flex flex-wrap gap-2">
@@ -91,7 +105,7 @@ export default async function ETFPage({ params }: ETFPageProps) {
                 <div className="flex items-center justify-between gap-3">
                   <p className="font-black text-ink">{block.label}</p>
                   <SignalBadge
-                    signal={etfScoreSignal(block.score / block.max * 100)}
+                    signal={etfScoreSignal((block.score / block.max) * 100)}
                     label={`${block.score}/${block.max}`}
                     compact
                   />
@@ -105,7 +119,8 @@ export default async function ETFPage({ params }: ETFPageProps) {
         </InfoCard>
 
         <div className="premium-card rounded-3xl p-4 text-sm font-semibold leading-relaxed text-graphite">
-          {analysis.mainRisk} Cette fiche aide à cadrer l’analyse, sans constituer un conseil en investissement.
+          {analysis.mainRisk} Cette fiche aide à cadrer l’analyse, sans constituer un
+          conseil en investissement.
         </div>
       </section>
     </main>

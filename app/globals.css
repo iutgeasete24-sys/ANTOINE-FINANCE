@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
-  background: #070908;
+  color-scheme: light;
+  background: #f5f7f4;
 }
 
 * {
@@ -18,9 +18,8 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  background:
-    linear-gradient(180deg, rgba(17, 22, 20, 0.96) 0%, #070908 48%, #050605 100%);
-  color: #f7f8f4;
+  background: #f5f7f4;
+  color: #15231d;
 }
 
 button,
@@ -30,7 +29,7 @@ select {
 }
 
 ::selection {
-  background: rgba(79, 214, 156, 0.22);
+  background: rgba(24, 139, 98, 0.2);
 }
 
 .safe-bottom {
@@ -42,12 +41,12 @@ select {
   min-height: 2.75rem;
   width: 100%;
   border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(21, 35, 29, 0.1);
+  background: rgba(21, 35, 29, 0.03);
   padding: 0 0.75rem;
   font-size: 0.875rem;
   font-weight: 700;
-  color: #f7f8f4;
+  color: #15231d;
   outline: none;
 }
 
@@ -56,15 +55,32 @@ select {
 }
 
 .field:focus {
-  border-color: rgba(79, 214, 156, 0.5);
-  box-shadow: 0 0 0 3px rgba(79, 214, 156, 0.13);
+  border-color: rgba(24, 139, 98, 0.5);
+  box-shadow: 0 0 0 3px rgba(24, 139, 98, 0.12);
 }
 
 .premium-card {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.082), rgba(255, 255, 255, 0.046));
-  box-shadow: 0 18px 52px rgba(0, 0, 0, 0.24);
-  backdrop-filter: blur(18px);
+  border: 1px solid rgba(21, 35, 29, 0.08);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 12px 32px rgba(28, 45, 36, 0.08);
+}
+
+.bg-white\/\[0\.04\],
+.bg-white\/\[0\.05\],
+.bg-white\/\[0\.06\],
+.bg-white\/\[0\.07\],
+.bg-white\/\[0\.08\],
+.bg-white\/\[0\.09\],
+.bg-white\/\[0\.1\] {
+  background-color: rgba(21, 35, 29, 0.04) !important;
+}
+
+.border-white\/10,
+.border-white\/15,
+.border-white\/20,
+.border-white\/\[0\.1\],
+.border-white\/\[0\.12\] {
+  border-color: rgba(21, 35, 29, 0.1) !important;
 }
 
 .tap-feedback {

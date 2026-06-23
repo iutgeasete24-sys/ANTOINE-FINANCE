@@ -64,9 +64,17 @@ const typeOptions = ["Tous", "Actions", "ETF"];
 
 const sortOptions: Array<{ value: SortMode; label: string; description: string }> = [
   { value: "score", label: "Meilleur score", description: "Score global disponible" },
-  { value: "valuation", label: "Valorisation raisonnable", description: "Bloc valorisation" },
+  {
+    value: "valuation",
+    label: "Valorisation raisonnable",
+    description: "Bloc valorisation"
+  },
   { value: "growth", label: "Croissance forte", description: "Bloc croissance" },
-  { value: "profitability", label: "Rentabilité élevée", description: "Bloc rentabilité" },
+  {
+    value: "profitability",
+    label: "Rentabilité élevée",
+    description: "Bloc rentabilité"
+  },
   { value: "dividend", label: "Dividende", description: "Rendement du dividende" },
   { value: "popularity", label: "Popularité", description: "Titres connus et liquides" }
 ];
@@ -112,7 +120,7 @@ function metricForItem(item: StockUniverseItem, sort: SortMode) {
 
   const analysis = getStockAnalysisForItem(item);
   if (!analysis) {
-    return sort === "popularity" ? item.popularityScore ?? 45 : 0;
+    return sort === "popularity" ? (item.popularityScore ?? 45) : 0;
   }
 
   if (sort === "score") return analysis.score;
@@ -123,10 +131,15 @@ function metricForItem(item: StockUniverseItem, sort: SortMode) {
     return analysis.scoreBlocks.find((block) => block.key === "growth")?.score ?? 0;
   }
   if (sort === "profitability") {
-    return analysis.scoreBlocks.find((block) => block.key === "profitability")?.score ?? 0;
+    return (
+      analysis.scoreBlocks.find((block) => block.key === "profitability")?.score ?? 0
+    );
   }
   if (sort === "dividend") {
-    return analysis.indicators.find((indicator) => indicator.key === "dividendYield")?.rawValue ?? 0;
+    return (
+      analysis.indicators.find((indicator) => indicator.key === "dividendYield")
+        ?.rawValue ?? 0
+    );
   }
   return item.popularityScore ?? analysis.score;
 }
@@ -142,12 +155,17 @@ export function ExplorerClient() {
   const deferredQuery = useDeferredValue(query);
 
   const exchangeOptions = useMemo(
-    () => ["Tous", ...Array.from(new Set(stockUniverse.map((item) => item.exchange))).sort()],
+    () => [
+      "Tous",
+      ...Array.from(new Set(stockUniverse.map((item) => item.exchange))).sort()
+    ],
     []
   );
 
   const subSectorOptions = useMemo(() => {
-    const filtered = stockUniverse.filter((item) => sector === "Tous" || item.sector === sector);
+    const filtered = stockUniverse.filter(
+      (item) => sector === "Tous" || item.sector === sector
+    );
     return Array.from(new Set(filtered.map((item) => item.subSector))).sort();
   }, [sector]);
 
@@ -158,7 +176,10 @@ export function ExplorerClient() {
       : stockUniverse;
 
     return queryResults
-      .filter((item) => country === "Monde" || item.country === country || item.region === country)
+      .filter(
+        (item) =>
+          country === "Monde" || item.country === country || item.region === country
+      )
       .filter((item) => sector === "Tous" || item.sector === sector)
       .filter((item) => !subSector || item.subSector === subSector)
       .filter((item) =>
@@ -186,9 +207,7 @@ export function ExplorerClient() {
   return (
     <main>
       <header className="pt-2">
-        <p className="text-xs font-bold uppercase tracking-normal text-mint">
-          Explorer
-        </p>
+        <p className="text-xs font-bold uppercase tracking-normal text-mint">Explorer</p>
         <h1 className="mt-2 text-4xl font-black leading-tight text-ink">
           Explorer simplement.
         </h1>
@@ -309,7 +328,8 @@ export function ExplorerClient() {
         <div className="flex gap-3">
           <ShieldCheck size={20} className="mt-0.5 shrink-0 text-mint" />
           <p className="text-sm font-semibold leading-relaxed text-graphite">
-            Les classements utilisent les données disponibles et ne remplacent pas une analyse personnelle.
+            Les classements utilisent les données disponibles et ne remplacent pas une
+            analyse personnelle.
           </p>
         </div>
       </section>
@@ -330,7 +350,7 @@ function Chip({
     <button
       type="button"
       onClick={onClick}
-      className={`tap-feedback shrink-0 rounded-full border px-3 py-2 text-xs font-black ${
+      className={`tap-feedback min-h-11 shrink-0 rounded-full border px-3 text-xs font-black ${
         active
           ? "border-mint/40 bg-mint/15 text-mint"
           : "border-white/10 bg-white/[0.07] text-graphite"
@@ -374,9 +394,7 @@ function ExplorerCard({ item }: { item: StockUniverseItem }) {
             <SignalBadge signal={signal} compact label={`${score}/100`} />
           )}
         </div>
-        <p className="mt-1 truncate text-sm font-semibold text-graphite">
-          {item.name}
-        </p>
+        <p className="mt-1 truncate text-sm font-semibold text-graphite">{item.name}</p>
         <p className="mt-1 text-xs font-semibold text-graphite">
           {item.country} · {item.sector} · {item.subSector}
         </p>
@@ -412,7 +430,9 @@ function ExplorerCard({ item }: { item: StockUniverseItem }) {
                 {etfAnalysis.riskLevel}
               </span>
               <span className="rounded-full bg-white/[0.07] px-2 py-1 text-graphite">
-                {item.expenseRatio === undefined ? "Frais N/D" : `${item.expenseRatio.toFixed(2)} %`}
+                {item.expenseRatio === undefined
+                  ? "Frais N/D"
+                  : `${item.expenseRatio.toFixed(2)} %`}
               </span>
             </>
           )}

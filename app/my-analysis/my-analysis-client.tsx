@@ -61,7 +61,9 @@ function readStoredPreferences(): AnalysisPreferences {
   }
 
   try {
-    const storedPreferences = JSON.parse(storedValue) as Partial<StoredAnalysisPreferences>;
+    const storedPreferences = JSON.parse(
+      storedValue
+    ) as Partial<StoredAnalysisPreferences>;
     const profile = isAnalysisProfile(storedPreferences.profile)
       ? storedPreferences.profile
       : defaultAnalysisProfile;
@@ -79,9 +81,8 @@ function readStoredPreferences(): AnalysisPreferences {
 }
 
 export function MyAnalysisClient() {
-  const [preferences, setPreferences] = useState<AnalysisPreferences>(
-    readStoredPreferences
-  );
+  const [preferences, setPreferences] =
+    useState<AnalysisPreferences>(readStoredPreferences);
   const { profile, selectedWidgetIds } = preferences;
 
   useEffect(() => {
@@ -98,10 +99,7 @@ export function MyAnalysisClient() {
   }, [profile, selectedWidgetIds]);
 
   const selectedWidgets = useMemo(
-    () =>
-      analysisWidgets.filter((widget) =>
-        selectedWidgetIds.includes(widget.id)
-      ),
+    () => analysisWidgets.filter((widget) => selectedWidgetIds.includes(widget.id)),
     [selectedWidgetIds]
   );
 
@@ -147,8 +145,8 @@ export function MyAnalysisClient() {
           Construisez votre analyse.
         </h1>
         <p className="mt-3 text-sm font-semibold leading-relaxed text-graphite">
-          Choisissez un profil, activez vos widgets, puis gardez une grille cohérente
-          pour lire chaque entreprise avec la même méthode.
+          Choisissez un profil, activez vos widgets, puis gardez une grille cohérente pour
+          lire chaque entreprise avec la même méthode.
         </p>
       </header>
 
@@ -276,9 +274,7 @@ export function MyAnalysisClient() {
       </section>
 
       <SectionCard className="mt-6">
-        <p className="text-xs font-bold uppercase tracking-normal text-mint">
-          Aperçu
-        </p>
+        <p className="text-xs font-bold uppercase tracking-normal text-mint">Aperçu</p>
         <h2 className="mt-1 text-xl font-black text-ink">Votre grille sélectionnée</h2>
         <p className="mt-2 text-sm leading-relaxed text-graphite">
           Cette grille est enregistrée gratuitement dans le navigateur. Elle pourra servir

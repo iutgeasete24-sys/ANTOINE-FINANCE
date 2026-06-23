@@ -113,7 +113,9 @@ function groupPerformance<T extends keyof PortfolioLine>(
       value: totals.value,
       gain: totals.value - totals.invested,
       gainPercent:
-        totals.invested > 0 ? ((totals.value - totals.invested) / totals.invested) * 100 : 0,
+        totals.invested > 0
+          ? ((totals.value - totals.invested) / totals.invested) * 100
+          : 0,
       weight: totalValue > 0 ? (totals.value / totalValue) * 100 : 0
     }))
     .sort((a, b) => b.value - a.value);
@@ -140,13 +142,21 @@ type PerformanceGroup = Array<{
   weight: number;
 }>;
 
-function weightedAverage(lines: EnrichedLine[], selector: (line: EnrichedLine) => number) {
+function weightedAverage(
+  lines: EnrichedLine[],
+  selector: (line: EnrichedLine) => number
+) {
   const totalValue = lines.reduce((sum, line) => sum + line.value, 0);
   if (totalValue <= 0) return 0;
   return lines.reduce((sum, line) => sum + selector(line) * line.weight, 0) / 100;
 }
 
-function diversificationScore(maxWeight: number, excellent: number, warning: number, max: number) {
+function diversificationScore(
+  maxWeight: number,
+  excellent: number,
+  warning: number,
+  max: number
+) {
   if (maxWeight <= excellent) return max;
   if (maxWeight <= warning) return Math.round(max * 0.75);
   if (maxWeight <= warning + 20) return Math.round(max * 0.5);
@@ -249,7 +259,9 @@ function buildAlerts(
     .forEach((line) => alerts.push(`${line.ticker} a un score inférieur à 50.`));
   lines
     .filter((line) => (line.dataQualityScore ?? 100) < 60)
-    .forEach((line) => alerts.push(`${line.ticker} a des données financières incomplètes.`));
+    .forEach((line) =>
+      alerts.push(`${line.ticker} a des données financières incomplètes.`)
+    );
 
   return alerts;
 }

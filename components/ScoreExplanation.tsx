@@ -12,9 +12,7 @@ export function ScoreExplanation({ explanation }: ScoreExplanationProps) {
         <CircleAlert size={18} className="text-amber" />
         <h2 className="text-lg font-black text-ink">Pourquoi ce score ?</h2>
       </div>
-      <p className="mt-2 text-sm leading-relaxed text-graphite/75">
-        {explanation.text}
-      </p>
+      <p className="mt-2 text-sm leading-relaxed text-graphite/75">{explanation.text}</p>
       {explanation.mainLostPoints.length > 0 && (
         <div className="mt-4 space-y-2">
           {explanation.mainLostPoints.map((item) => (
@@ -28,9 +26,7 @@ export function ScoreExplanation({ explanation }: ScoreExplanationProps) {
                   {item.reason}
                 </p>
               </div>
-              <p className="shrink-0 text-sm font-black text-rose">
-                -{item.lostPoints}
-              </p>
+              <p className="shrink-0 text-sm font-black text-rose">-{item.lostPoints}</p>
             </div>
           ))}
         </div>

@@ -154,8 +154,8 @@ export default function AmbassadorsPage() {
         />
         <p className="mt-4 text-sm font-semibold leading-relaxed text-graphite">
           Aucun système d’affiliation réel n’est encore connecté. L’objectif est de
-          sélectionner quelques créateurs finance sérieux, tester les formats et construire
-          un partenariat propre avant toute automatisation.
+          sélectionner quelques créateurs finance sérieux, tester les formats et
+          construire un partenariat propre avant toute automatisation.
         </p>
       </SectionCard>
 
@@ -184,9 +184,7 @@ function SectionTitle({
         <Icon size={20} />
       </div>
       <div>
-        <p className="text-xs font-bold uppercase tracking-normal text-mint">
-          {eyebrow}
-        </p>
+        <p className="text-xs font-bold uppercase tracking-normal text-mint">{eyebrow}</p>
         <h2 className="mt-1 text-xl font-black text-ink">{title}</h2>
       </div>
     </div>

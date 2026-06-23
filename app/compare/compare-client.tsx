@@ -77,7 +77,9 @@ function readSelectedWidgetIds() {
       (id): id is string => typeof id === "string" && availableWidgetIds.has(id)
     );
 
-    return selectedIds.length > 0 ? selectedIds : profileWidgetPresets[defaultAnalysisProfile];
+    return selectedIds.length > 0
+      ? selectedIds
+      : profileWidgetPresets[defaultAnalysisProfile];
   } catch {
     return profileWidgetPresets[defaultAnalysisProfile];
   }
@@ -102,10 +104,7 @@ function availableIndicator(analysis: StockAnalysis, key: keyof FinancialIndicat
   return indicator?.isAvailable ? indicator : null;
 }
 
-function bestHigher(
-  analyses: StockAnalysis[],
-  keys: Array<keyof FinancialIndicators>
-) {
+function bestHigher(analyses: StockAnalysis[], keys: Array<keyof FinancialIndicators>) {
   for (const key of keys) {
     const values = analyses
       .map((analysis) => ({
@@ -117,17 +116,16 @@ function bestHigher(
       );
 
     if (values.length > 0) {
-      return values.sort((a, b) => (b.indicator.rawValue ?? 0) - (a.indicator.rawValue ?? 0))[0];
+      return values.sort(
+        (a, b) => (b.indicator.rawValue ?? 0) - (a.indicator.rawValue ?? 0)
+      )[0];
     }
   }
 
   return null;
 }
 
-function bestLower(
-  analyses: StockAnalysis[],
-  keys: Array<keyof FinancialIndicators>
-) {
+function bestLower(analyses: StockAnalysis[], keys: Array<keyof FinancialIndicators>) {
   for (const key of keys) {
     const values = analyses
       .map((analysis) => ({
@@ -139,7 +137,9 @@ function bestLower(
       );
 
     if (values.length > 0) {
-      return values.sort((a, b) => (a.indicator.rawValue ?? 0) - (b.indicator.rawValue ?? 0))[0];
+      return values.sort(
+        (a, b) => (a.indicator.rawValue ?? 0) - (b.indicator.rawValue ?? 0)
+      )[0];
     }
   }
 
@@ -183,10 +183,7 @@ export function CompareClient() {
   }, [analyses]);
 
   const selectedWidgets = useMemo(
-    () =>
-      analysisWidgets.filter((widget) =>
-        selectedWidgetIds.includes(widget.id)
-      ),
+    () => analysisWidgets.filter((widget) => selectedWidgetIds.includes(widget.id)),
     [selectedWidgetIds]
   );
 
@@ -269,10 +266,7 @@ export function CompareClient() {
         <>
           <section className="mt-5 grid grid-cols-1 gap-3">
             {analyses.map((analysis) => (
-              <article
-                key={analysis.ticker}
-                className="premium-card rounded-2xl p-4"
-              >
+              <article key={analysis.ticker} className="premium-card rounded-2xl p-4">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2">
@@ -307,7 +301,9 @@ export function CompareClient() {
           <section className="premium-card mt-6 overflow-hidden rounded-2xl">
             <div className="overflow-x-auto">
               <div className="min-w-[560px]">
-                <div className={`${comparisonGridClass} border-b border-white/10 bg-white/[0.07] p-3 text-xs font-black uppercase tracking-normal text-graphite`}>
+                <div
+                  className={`${comparisonGridClass} border-b border-white/10 bg-white/[0.07] p-3 text-xs font-black uppercase tracking-normal text-graphite`}
+                >
                   <span>Critère</span>
                   {analyses.map((analysis) => (
                     <span key={analysis.ticker} className="text-center">
@@ -326,11 +322,15 @@ export function CompareClient() {
                     key={row.key}
                     label={row.label}
                     values={analyses.map((analysis) => {
-                      const block = analysis.scoreBlocks.find((item) => item.key === row.key);
+                      const block = analysis.scoreBlocks.find(
+                        (item) => item.key === row.key
+                      );
                       return block ? `${block.score}/${block.max}` : "-";
                     })}
                     signals={analyses.map((analysis) => {
-                      const block = analysis.scoreBlocks.find((item) => item.key === row.key);
+                      const block = analysis.scoreBlocks.find(
+                        (item) => item.key === row.key
+                      );
                       return block?.signal ?? "orange";
                     })}
                   />
@@ -367,7 +367,9 @@ export function CompareClient() {
             <section className="premium-card overflow-hidden rounded-2xl">
               <div className="overflow-x-auto">
                 <div className="min-w-[560px]">
-                  <div className={`${comparisonGridClass} border-b border-white/10 bg-white/[0.07] p-3 text-xs font-black uppercase tracking-normal text-graphite`}>
+                  <div
+                    className={`${comparisonGridClass} border-b border-white/10 bg-white/[0.07] p-3 text-xs font-black uppercase tracking-normal text-graphite`}
+                  >
                     <span>Indicateur</span>
                     {analyses.map((analysis) => (
                       <span key={analysis.ticker} className="text-center">
@@ -425,7 +427,9 @@ export function CompareClient() {
                 }
               />
               <div className="rounded-2xl border border-white/10 bg-white/[0.06] p-3">
-                <p className="text-sm font-black text-ink">Données manquantes éventuelles</p>
+                <p className="text-sm font-black text-ink">
+                  Données manquantes éventuelles
+                </p>
                 {summary.missingByTicker.length > 0 ? (
                   <div className="mt-2 space-y-2">
                     {summary.missingByTicker.map((item) => (
@@ -484,7 +488,9 @@ function ComparisonRow({
   wrap?: boolean;
 }) {
   return (
-    <div className={`${comparisonGridClass} border-b border-white/10 p-3 last:border-b-0`}>
+    <div
+      className={`${comparisonGridClass} border-b border-white/10 p-3 last:border-b-0`}
+    >
       <p className="text-sm font-bold text-ink">{label}</p>
       {values.map((value, index) => (
         <div key={`${label}-${index}`} className="flex justify-center px-1 text-center">

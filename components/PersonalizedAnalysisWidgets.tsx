@@ -3,7 +3,12 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Settings2 } from "lucide-react";
-import type { FinancialIndicators, IndicatorView, Signal, StockAnalysis } from "@/types/finance";
+import type {
+  FinancialIndicators,
+  IndicatorView,
+  Signal,
+  StockAnalysis
+} from "@/types/finance";
 import {
   analysisPreferencesStorageKey,
   analysisWidgets,
@@ -68,7 +73,9 @@ function readSelectedWidgetIds() {
       (id): id is string => typeof id === "string" && availableWidgetIds.has(id)
     );
 
-    return selectedIds.length > 0 ? selectedIds : profileWidgetPresets[defaultAnalysisProfile];
+    return selectedIds.length > 0
+      ? selectedIds
+      : profileWidgetPresets[defaultAnalysisProfile];
   } catch {
     return profileWidgetPresets[defaultAnalysisProfile];
   }
@@ -97,10 +104,7 @@ export function PersonalizedAnalysisWidgets({
   const [selectedWidgetIds] = useState(readSelectedWidgetIds);
 
   const selectedWidgets = useMemo(
-    () =>
-      analysisWidgets.filter((widget) =>
-        selectedWidgetIds.includes(widget.id)
-      ),
+    () => analysisWidgets.filter((widget) => selectedWidgetIds.includes(widget.id)),
     [selectedWidgetIds]
   );
 
@@ -131,10 +135,7 @@ export function PersonalizedAnalysisWidgets({
             : "à surveiller";
 
           return (
-            <article
-              key={widget.id}
-              className="premium-card rounded-2xl p-4"
-            >
+            <article key={widget.id} className="premium-card rounded-2xl p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <p className="text-sm font-black text-ink">{widget.label}</p>

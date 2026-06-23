@@ -147,13 +147,7 @@ export default async function AmbassadorPage({ params }: AmbassadorPageProps) {
   );
 }
 
-function ReportCard({
-  report,
-  query
-}: {
-  report: AmbassadorReport;
-  query: string;
-}) {
+function ReportCard({ report, query }: { report: AmbassadorReport; query: string }) {
   return (
     <article className="premium-card rounded-2xl p-4">
       <div className="flex items-start gap-3">

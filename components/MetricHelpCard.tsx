@@ -4,12 +4,10 @@ import type { FinancialIndicators } from "@/types/finance";
 type MetricKey = keyof FinancialIndicators;
 
 const metricHelp: Partial<Record<MetricKey, string>> = {
-  pe:
-    "Le PER indique combien le marché paie pour 1 € de bénéfice. Plus il est élevé, plus les attentes de croissance sont importantes.",
+  pe: "Le PER indique combien le marché paie pour 1 € de bénéfice. Plus il est élevé, plus les attentes de croissance sont importantes.",
   evToEbitda:
     "L’EV/EBITDA compare la valeur totale de l’entreprise à son résultat opérationnel avant certaines charges. Il aide à comparer des sociétés d’un même secteur.",
-  roic:
-    "Le ROIC mesure la rentabilité du capital investi. Il aide à voir si l’entreprise transforme bien ses ressources en profits.",
+  roic: "Le ROIC mesure la rentabilité du capital investi. Il aide à voir si l’entreprise transforme bien ses ressources en profits.",
   operatingMargin:
     "La marge opérationnelle montre la part du chiffre d’affaires qui reste après les coûts du cœur d’activité.",
   netDebtToEbitda:

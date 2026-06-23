@@ -269,7 +269,9 @@ function percent(numerator: number | null, denominator: number | null) {
   return (numerator / denominator) * 100;
 }
 
-export function calculateFundamentalsFromSEC(companyFacts: Awaited<ReturnType<typeof getCompanyFacts>>) {
+export function calculateFundamentalsFromSEC(
+  companyFacts: Awaited<ReturnType<typeof getCompanyFacts>>
+) {
   const facts = companyFacts?.facts?.["us-gaap"];
   if (!facts) return null;
 
@@ -280,11 +282,19 @@ export function calculateFundamentalsFromSEC(companyFacts: Awaited<ReturnType<ty
   ]);
   const netIncome = annualValues(facts, ["NetIncomeLoss", "ProfitLoss"]);
   const operatingIncome = annualValues(facts, ["OperatingIncomeLoss"]);
-  const operatingCashFlow = annualValues(facts, ["NetCashProvidedByUsedInOperatingActivities"]);
+  const operatingCashFlow = annualValues(facts, [
+    "NetCashProvidedByUsedInOperatingActivities"
+  ]);
   const capex = annualValues(facts, ["PaymentsToAcquirePropertyPlantAndEquipment"]);
   const equity = annualValues(facts, ["StockholdersEquity"]);
-  const debt = annualValues(facts, ["LongTermDebtAndFinanceLeaseObligations", "LongTermDebt"]);
-  const shares = annualValues(facts, ["EntityCommonStockSharesOutstanding", "CommonStocksIncludingAdditionalPaidInCapital"]);
+  const debt = annualValues(facts, [
+    "LongTermDebtAndFinanceLeaseObligations",
+    "LongTermDebt"
+  ]);
+  const shares = annualValues(facts, [
+    "EntityCommonStockSharesOutstanding",
+    "CommonStocksIncludingAdditionalPaidInCapital"
+  ]);
 
   const latestRevenue = latestValue(revenue);
   const oldestRevenue = revenue[Math.min(revenue.length - 1, 4)]?.value ?? null;
@@ -302,7 +312,11 @@ export function calculateFundamentalsFromSEC(companyFacts: Awaited<ReturnType<ty
   const oldestShares = shares[Math.min(shares.length - 1, 4)]?.value ?? null;
 
   return {
-    revenueGrowth5Y: cagr(latestRevenue, oldestRevenue, Math.max(1, Math.min(revenue.length, 5) - 1)),
+    revenueGrowth5Y: cagr(
+      latestRevenue,
+      oldestRevenue,
+      Math.max(1, Math.min(revenue.length, 5) - 1)
+    ),
     epsGrowth5Y: null,
     fcfGrowth5Y: null,
     grossMargin: null,
@@ -398,7 +412,8 @@ export async function getRawStockData(ticker: string): Promise<RawStockData> {
     warnings.push("Fondamentaux complets indisponibles gratuitement pour cette société.");
   }
 
-  const source = sources.length > 0 ? dataSourceLabel(sources) : fallback.source ?? "local";
+  const source =
+    sources.length > 0 ? dataSourceLabel(sources) : (fallback.source ?? "local");
   const hasFreeFundamentals = Boolean(secIndicators);
 
   return {

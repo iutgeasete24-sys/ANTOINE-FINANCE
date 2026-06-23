@@ -42,7 +42,7 @@ export default function RootLayout({
     <html lang="fr" className={inter.variable} data-scroll-behavior="smooth">
       <body className="font-sans antialiased">
         <ServiceWorkerRegistration />
-        <div className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-4 pb-28 pt-5 sm:px-6">
+        <div className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-4 pb-32 pt-5 sm:px-6">
           {children}
         </div>
         <BottomNav />
