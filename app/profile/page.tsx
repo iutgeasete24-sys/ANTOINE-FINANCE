@@ -34,12 +34,9 @@ export default function ProfilePage() {
     <main>
       <header className="pt-2">
         <p className="text-xs font-bold uppercase tracking-normal text-mint">Profil</p>
-        <h1 className="mt-2 text-4xl font-black leading-tight text-ink">
-          Réglages et transparence.
-        </h1>
+        <h1 className="mt-2 text-3xl font-black leading-tight text-ink">Réglages.</h1>
         <p className="mt-3 text-sm font-semibold leading-relaxed text-graphite">
-          Les outils secondaires restent accessibles ici pour garder l’app simple au
-          quotidien.
+          Données, transparence et accès utiles.
         </p>
       </header>
 
@@ -51,8 +48,7 @@ export default function ProfilePage() {
           <div>
             <h2 className="text-xl font-black text-ink">Données et sécurité</h2>
             <p className="mt-2 text-sm leading-relaxed text-graphite">
-              L’app privilégie les sources gratuites, le cache local et le stockage sur
-              cet appareil. Aucune API payante n’est nécessaire pour démarrer.
+              Sources affichées, cache local et stockage sur cet appareil.
             </p>
           </div>
         </div>

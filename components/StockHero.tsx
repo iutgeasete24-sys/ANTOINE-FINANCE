@@ -43,7 +43,7 @@ export function StockHero({ analysis }: StockHeroProps) {
         <WatchButton analysis={analysis} />
       </div>
 
-      <div className="mt-5 flex items-center justify-between gap-4 rounded-3xl border border-white/10 bg-white/5 p-4">
+      <div className="mt-5 flex items-center justify-between gap-4 rounded-3xl border border-ink/10 bg-mist/70 p-4">
         <ScoreRing score={analysis.score} signal={scoreTone} />
         <div className="min-w-0 flex-1 text-right">
           <p className="text-sm font-semibold text-graphite/65">Prix actuel</p>
@@ -53,8 +53,8 @@ export function StockHero({ analysis }: StockHeroProps) {
           <p
             className={`mt-2 inline-flex items-center gap-1 rounded-full px-2 py-1 text-sm font-bold ${
               analysis.dayChangePercent >= 0
-                ? "bg-emerald-300/10 text-emerald-200"
-                : "bg-rose-300/10 text-rose-200"
+                ? "bg-mint/10 text-mint"
+                : "bg-rose/10 text-rose"
             }`}
           >
             <TrendIcon size={16} />
@@ -134,7 +134,7 @@ function QuickRead({
   items: string[];
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-3">
+    <div className="rounded-2xl border border-ink/10 bg-mist/70 p-3">
       <p
         className={`flex items-center gap-2 text-xs font-black uppercase tracking-normal ${
           tone === "green" ? "text-mint" : "text-amber"

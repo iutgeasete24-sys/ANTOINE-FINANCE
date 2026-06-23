@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Home, PieChart, Search, SlidersHorizontal } from "lucide-react";
+import { GitCompare, Home, PieChart, Search, Star } from "lucide-react";
 import { cn } from "@/utils/cn";
 
 const items = [
-  { href: "/analysis", label: "Aujourd’hui", icon: Home },
-  { href: "/explorer", label: "Recherche", icon: Search },
-  { href: "/portfolio", label: "Portf.", ariaLabel: "Portefeuille", icon: PieChart },
-  { href: "/compare", label: "Scores", icon: BarChart3 },
-  { href: "/profile", label: "Réglages", icon: SlidersHorizontal }
+  { href: "/analysis", label: "Analyse", icon: Home },
+  { href: "/explorer", label: "Explorer", icon: Search },
+  { href: "/compare", label: "Comparer", icon: GitCompare },
+  { href: "/watchlist", label: "Watchlist", icon: Star },
+  { href: "/portfolio", label: "Portf.", ariaLabel: "Portefeuille", icon: PieChart }
 ];
 
 export function BottomNav() {

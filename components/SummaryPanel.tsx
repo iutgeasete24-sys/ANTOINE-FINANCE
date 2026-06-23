@@ -15,7 +15,7 @@ export function SummaryPanel({ summary }: SummaryPanelProps) {
       </p>
       <div className="mt-4 space-y-4">
         <div className="flex gap-3">
-          <ShieldQuestion className="text-rose-300 mt-0.5 shrink-0" size={19} />
+          <ShieldQuestion className="mt-0.5 shrink-0 text-rose" size={19} />
           <div>
             <h3 className="text-sm font-bold">Risque principal</h3>
             <p className="mt-1 text-sm leading-relaxed text-graphite">

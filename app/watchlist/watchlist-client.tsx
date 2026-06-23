@@ -62,8 +62,7 @@ export function WatchlistClient() {
         <p className="text-xs font-bold uppercase tracking-normal text-mint">Watchlist</p>
         <h1 className="mt-1 text-3xl font-black text-ink">Actions à suivre</h1>
         <p className="mt-2 text-sm font-medium leading-relaxed text-graphite/70">
-          Ajoutez une société depuis sa fiche ou son rapport pour la garder sous
-          surveillance.
+          Vos entreprises à surveiller.
         </p>
       </header>
 
@@ -81,8 +80,7 @@ export function WatchlistClient() {
               Ajoutez vos premières entreprises à suivre.
             </h2>
             <p className="mt-2 text-sm font-semibold leading-relaxed text-graphite">
-              Explorez les sociétés disponibles, ouvrez une fiche ou un rapport, puis
-              ajoutez les dossiers utiles à votre suivi personnel.
+              Commencez par explorer les entreprises disponibles.
             </p>
             <Link
               href="/explorer"

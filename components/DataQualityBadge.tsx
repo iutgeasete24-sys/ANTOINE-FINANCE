@@ -14,10 +14,10 @@ export function DataQualityBadge({ dataQuality }: DataQualityBadgeProps) {
         : AlertTriangle;
   const classes =
     dataQuality.level === "élevée"
-      ? "bg-emerald-300/10 text-emerald-100 border-emerald-300/20"
+      ? "border-mint/20 bg-mint/10 text-mint"
       : dataQuality.level === "moyenne"
-        ? "bg-amber-300/10 text-amber-100 border-amber-300/20"
-        : "bg-rose-300/10 text-rose-100 border-rose-300/20";
+        ? "border-amber/20 bg-amber/10 text-amber"
+        : "border-rose/20 bg-rose/10 text-rose";
 
   return (
     <div className={`rounded-2xl border p-3 ${classes}`}>
