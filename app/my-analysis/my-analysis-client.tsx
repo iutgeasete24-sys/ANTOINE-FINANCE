@@ -203,7 +203,7 @@ export function MyAnalysisClient() {
           <button
             type="button"
             onClick={resetProfile}
-            className="tap-feedback inline-flex min-h-10 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.07] px-3 text-xs font-black text-ink"
+            className="tap-feedback inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.07] px-3 text-xs font-black text-ink"
           >
             <RotateCcw size={15} />
             Réinitialiser

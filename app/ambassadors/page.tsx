@@ -70,7 +70,7 @@ export default function AmbassadorsPage() {
     <main>
       <Link
         href="/"
-        className="mb-4 inline-flex items-center gap-2 text-sm font-black text-graphite"
+        className="mb-4 inline-flex min-h-11 items-center gap-2 text-sm font-black text-graphite"
       >
         <ArrowLeft size={17} />
         Retour à l’accueil
@@ -83,7 +83,7 @@ export default function AmbassadorsPage() {
         <p className="mt-4 text-xs font-bold uppercase tracking-normal text-mint">
           Programme ambassadeur
         </p>
-        <h1 className="mt-2 text-4xl font-black leading-tight text-ink">
+        <h1 className="mt-2 text-2xl font-black leading-tight text-ink sm:text-4xl">
           Devenez ambassadeur d’un outil d’analyse financière pédagogique.
         </h1>
         <p className="mt-3 text-sm font-semibold leading-relaxed text-graphite">

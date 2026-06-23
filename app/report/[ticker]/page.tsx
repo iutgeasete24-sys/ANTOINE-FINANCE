@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { DataTransparencyCard } from "@/components/DataTransparencyCard";
+import { MetricHelpCard } from "@/components/MetricHelpCard";
 import { PersonalizedAnalysisWidgets } from "@/components/PersonalizedAnalysisWidgets";
 import { ScoreRing } from "@/components/ScoreRing";
 import { SignalBadge } from "@/components/SignalBadge";
@@ -207,6 +208,7 @@ function ReportMetricCard({ metric }: { metric: ReportMetric }) {
       <p className="mt-2 text-xs font-semibold leading-relaxed text-graphite">
         {metric.detail}
       </p>
+      {metric.indicator && <MetricHelpCard metricKey={metric.indicator.key} />}
     </article>
   );
 }
@@ -298,7 +300,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
     <main>
       <Link
         href={`/stock/${analysis.ticker}`}
-        className="mb-4 inline-flex items-center gap-2 text-sm font-black text-graphite"
+        className="mb-4 inline-flex min-h-11 items-center gap-2 text-sm font-black text-graphite"
       >
         <ArrowLeft size={17} />
         Retour à la fiche

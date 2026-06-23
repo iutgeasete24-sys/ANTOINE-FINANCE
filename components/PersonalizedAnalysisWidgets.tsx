@@ -115,7 +115,7 @@ export function PersonalizedAnalysisWidgets({
         </div>
         <Link
           href="/my-analysis"
-          className="tap-feedback inline-flex min-h-9 shrink-0 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.07] px-3 text-xs font-black text-ink"
+          className="tap-feedback inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.07] px-3 text-xs font-black text-ink"
         >
           <Settings2 size={15} />
           Modifier ma grille

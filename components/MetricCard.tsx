@@ -1,4 +1,5 @@
 import type { IndicatorView } from "@/types/finance";
+import { MetricHelpCard } from "./MetricHelpCard";
 import { SignalBadge } from "./SignalBadge";
 
 interface MetricCardProps {
@@ -16,6 +17,7 @@ export function MetricCard({ indicator }: MetricCardProps) {
       <p className="mt-2 text-xs leading-relaxed text-graphite/75">
         {indicator.explanation}
       </p>
+      <MetricHelpCard metricKey={indicator.key} />
       <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-bold">
         <span className="rounded-full bg-mist px-2 py-1 text-graphite/70">
           {indicator.scoreImpact}

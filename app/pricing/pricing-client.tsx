@@ -8,9 +8,11 @@ import {
   ArrowRight,
   CheckCircle2,
   Clock3,
+  HelpCircle,
   Sparkles,
   X
 } from "lucide-react";
+import { productFaqs } from "@/data/productFaqs";
 import {
   pricingComparisonRows,
   pricingIntentStorageKey,
@@ -135,7 +137,7 @@ export function PricingClient() {
     <main>
       <Link
         href="/"
-        className="mb-4 inline-flex items-center gap-2 text-sm font-black text-graphite"
+        className="mb-4 inline-flex min-h-11 items-center gap-2 text-sm font-black text-graphite"
       >
         <ArrowLeft size={17} />
         Retour à l’accueil
@@ -186,6 +188,33 @@ export function PricingClient() {
               ))}
             </tbody>
           </table>
+        </div>
+      </section>
+
+      <section className="premium-card mt-6 rounded-3xl p-4">
+        <p className="text-xs font-bold uppercase tracking-normal text-mint">
+          FAQ
+        </p>
+        <h2 className="mt-1 text-xl font-black text-ink">Questions fréquentes</h2>
+        <div className="mt-4 space-y-3">
+          {productFaqs.map((item) => (
+            <article
+              key={item.question}
+              className="rounded-2xl border border-white/10 bg-white/[0.06] p-3"
+            >
+              <div className="flex gap-3">
+                <HelpCircle size={18} className="mt-0.5 shrink-0 text-mint" />
+                <div>
+                  <h3 className="text-sm font-black leading-snug text-ink">
+                    {item.question}
+                  </h3>
+                  <p className="mt-2 text-sm font-semibold leading-relaxed text-graphite">
+                    {item.answer}
+                  </p>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -346,8 +375,8 @@ function InterestModal({
   }
 
   return (
-    <div className="fixed inset-0 z-[70] grid place-items-end bg-black/55 p-3 backdrop-blur-md sm:place-items-center">
-      <div className="w-full max-w-md rounded-3xl border border-white/15 bg-night/90 p-4 shadow-soft">
+    <div className="safe-bottom fixed inset-0 z-[70] grid place-items-end bg-black/55 p-3 backdrop-blur-md sm:place-items-center">
+      <div className="max-h-full w-full max-w-md overflow-y-auto overscroll-contain rounded-3xl border border-white/15 bg-night/90 p-4 shadow-soft">
         <div className="flex items-start justify-between gap-3">
           <div className="flex gap-3">
             <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-mint/15 text-mint">

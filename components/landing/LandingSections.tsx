@@ -22,6 +22,7 @@ import {
   MiniInsight,
   PricingCard
 } from "@/components/landing/LandingCards";
+import { productFaqs } from "@/data/productFaqs";
 import { pricingPlans } from "@/data/pricingPlans";
 
 interface ReportItem {
@@ -35,11 +36,6 @@ interface WidgetItem {
   label: string;
   icon: LucideIcon;
   detail: string;
-}
-
-interface FAQItem {
-  question: string;
-  answer: string;
 }
 
 interface FreeReportItem {
@@ -121,29 +117,6 @@ const trustItems = [
   "Score expliqué",
   "Données manquantes signalées",
   "Pas de conseil personnalisé"
-];
-
-const faqs: FAQItem[] = [
-  {
-    question: "À quoi sert Antoine Capital Analyzer ?",
-    answer:
-      "À structurer une première lecture d'une entreprise cotée avec un rapport clair sur l'activité, les chiffres, la valorisation et les risques."
-  },
-  {
-    question: "Les rapports remplacent-ils mes recherches ?",
-    answer:
-      "Non. Ils donnent une méthode de lecture et des points à approfondir, mais la décision finale reste personnelle."
-  },
-  {
-    question: "Les données sont-elles toujours complètes ?",
-    answer:
-      "Non. L'application privilégie les sources gratuites et indique clairement les données indisponibles ou partielles."
-  },
-  {
-    question: "Puis-je comparer plusieurs entreprises ?",
-    answer:
-      "Oui. La comparaison aide à lire plusieurs profils avec les mêmes indicateurs pour garder une méthode cohérente."
-  }
 ];
 
 export function HeroSection() {
@@ -433,7 +406,7 @@ export function FAQSection() {
     <section className="mt-8">
       <LandingSectionHeader eyebrow="FAQ" title="Questions fréquentes." />
       <div className="mt-4 space-y-3">
-        {faqs.map((item) => (
+        {productFaqs.map((item) => (
           <LandingCard key={item.question} className="rounded-2xl">
             <div className="flex gap-3">
               <HelpCircle size={18} className="mt-0.5 shrink-0 text-mint" />

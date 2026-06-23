@@ -66,7 +66,7 @@ export default async function AmbassadorPage({ params }: AmbassadorPageProps) {
     <main>
       <Link
         href="/"
-        className="mb-4 inline-flex items-center gap-2 text-sm font-black text-graphite"
+        className="mb-4 inline-flex min-h-11 items-center gap-2 text-sm font-black text-graphite"
       >
         <ArrowLeft size={17} />
         Retour à l’accueil
@@ -79,7 +79,7 @@ export default async function AmbassadorPage({ params }: AmbassadorPageProps) {
         <p className="mt-4 text-xs font-bold uppercase tracking-normal text-mint">
           Communauté partenaire
         </p>
-        <h1 className="mt-2 text-4xl font-black leading-tight text-ink">
+        <h1 className="mt-2 text-3xl font-black leading-tight text-ink sm:text-4xl">
           {landing.title}
         </h1>
         <p className="mt-3 text-sm font-semibold leading-relaxed text-graphite">

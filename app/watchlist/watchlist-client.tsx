@@ -105,7 +105,7 @@ export function WatchlistClient() {
                   key={value}
                   type="button"
                   onClick={() => setSortMode(value as SortMode)}
-                  className={`tap-feedback shrink-0 rounded-full border px-3 py-2 text-xs font-black ${
+                  className={`tap-feedback min-h-11 shrink-0 rounded-full border px-3 text-xs font-black ${
                     sortMode === value
                       ? "border-mint/40 bg-mint/15 text-mint"
                       : "border-white/10 bg-white/[0.07] text-graphite"
@@ -139,7 +139,7 @@ export function WatchlistClient() {
                   <button
                     type="button"
                     onClick={() => removeTicker(item.ticker)}
-                    className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-mist text-graphite"
+                    className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-mist text-graphite"
                     aria-label={`Retirer ${item.ticker}`}
                     title={`Retirer ${item.ticker}`}
                   >

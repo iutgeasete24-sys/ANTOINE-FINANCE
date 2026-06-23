@@ -23,6 +23,7 @@ import { formatCurrency, formatPercent } from "@/utils/format";
 import { scoreSignal } from "@/utils/signals";
 
 const defaultTickers = ["ASML", "AVGO", "NOVO-B.CO"];
+const comparisonGridClass = "grid grid-cols-[10rem_repeat(3,minmax(0,1fr))]";
 
 const rows: Array<{ key: ScoreBlockKey; label: string }> = [
   { key: "growth", label: "Croissance" },
@@ -304,40 +305,44 @@ export function CompareClient() {
           </section>
 
           <section className="premium-card mt-6 overflow-hidden rounded-2xl">
-            <div className="grid grid-cols-[1.25fr_repeat(3,minmax(0,1fr))] border-b border-white/10 bg-white/[0.07] p-3 text-xs font-black uppercase tracking-normal text-graphite">
-              <span>Critère</span>
-              {analyses.map((analysis) => (
-                <span key={analysis.ticker} className="text-center">
-                  {analysis.ticker}
-                </span>
-              ))}
-            </div>
+            <div className="overflow-x-auto">
+              <div className="min-w-[560px]">
+                <div className={`${comparisonGridClass} border-b border-white/10 bg-white/[0.07] p-3 text-xs font-black uppercase tracking-normal text-graphite`}>
+                  <span>Critère</span>
+                  {analyses.map((analysis) => (
+                    <span key={analysis.ticker} className="text-center">
+                      {analysis.ticker}
+                    </span>
+                  ))}
+                </div>
 
-            <ComparisonRow
-              label="Score global"
-              values={analyses.map((analysis) => `${analysis.score}/100`)}
-              signals={analyses.map((analysis) => scoreSignal(analysis.score))}
-            />
-            {rows.map((row) => (
-              <ComparisonRow
-                key={row.key}
-                label={row.label}
-                values={analyses.map((analysis) => {
-                  const block = analysis.scoreBlocks.find((item) => item.key === row.key);
-                  return block ? `${block.score}/${block.max}` : "-";
-                })}
-                signals={analyses.map((analysis) => {
-                  const block = analysis.scoreBlocks.find((item) => item.key === row.key);
-                  return block?.signal ?? "orange";
-                })}
-              />
-            ))}
-            <ComparisonRow
-              label="Décision"
-              values={analyses.map((analysis) => analysis.decision)}
-              signals={analyses.map((analysis) => scoreSignal(analysis.score))}
-              wrap
-            />
+                <ComparisonRow
+                  label="Score global"
+                  values={analyses.map((analysis) => `${analysis.score}/100`)}
+                  signals={analyses.map((analysis) => scoreSignal(analysis.score))}
+                />
+                {rows.map((row) => (
+                  <ComparisonRow
+                    key={row.key}
+                    label={row.label}
+                    values={analyses.map((analysis) => {
+                      const block = analysis.scoreBlocks.find((item) => item.key === row.key);
+                      return block ? `${block.score}/${block.max}` : "-";
+                    })}
+                    signals={analyses.map((analysis) => {
+                      const block = analysis.scoreBlocks.find((item) => item.key === row.key);
+                      return block?.signal ?? "orange";
+                    })}
+                  />
+                ))}
+                <ComparisonRow
+                  label="Décision"
+                  values={analyses.map((analysis) => analysis.decision)}
+                  signals={analyses.map((analysis) => scoreSignal(analysis.score))}
+                  wrap
+                />
+              </div>
+            </div>
           </section>
 
           <section className="mt-6">
@@ -352,7 +357,7 @@ export function CompareClient() {
               </div>
               <Link
                 href="/my-analysis"
-                className="tap-feedback inline-flex min-h-9 shrink-0 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.07] px-3 text-xs font-black text-ink"
+                className="tap-feedback inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.07] px-3 text-xs font-black text-ink"
               >
                 <Settings2 size={15} />
                 Modifier
@@ -360,28 +365,32 @@ export function CompareClient() {
             </div>
 
             <section className="premium-card overflow-hidden rounded-2xl">
-              <div className="grid grid-cols-[1.25fr_repeat(3,minmax(0,1fr))] border-b border-white/10 bg-white/[0.07] p-3 text-xs font-black uppercase tracking-normal text-graphite">
-                <span>Indicateur</span>
-                {analyses.map((analysis) => (
-                  <span key={analysis.ticker} className="text-center">
-                    {analysis.ticker}
-                  </span>
-                ))}
-              </div>
+              <div className="overflow-x-auto">
+                <div className="min-w-[560px]">
+                  <div className={`${comparisonGridClass} border-b border-white/10 bg-white/[0.07] p-3 text-xs font-black uppercase tracking-normal text-graphite`}>
+                    <span>Indicateur</span>
+                    {analyses.map((analysis) => (
+                      <span key={analysis.ticker} className="text-center">
+                        {analysis.ticker}
+                      </span>
+                    ))}
+                  </div>
 
-              {selectedWidgets.map((widget) => (
-                <ComparisonRow
-                  key={widget.id}
-                  label={widget.label}
-                  values={analyses.map((analysis) =>
-                    indicatorValue(resolveIndicator(widget, analysis))
-                  )}
-                  signals={analyses.map((analysis) =>
-                    indicatorSignal(resolveIndicator(widget, analysis))
-                  )}
-                  wrap
-                />
-              ))}
+                  {selectedWidgets.map((widget) => (
+                    <ComparisonRow
+                      key={widget.id}
+                      label={widget.label}
+                      values={analyses.map((analysis) =>
+                        indicatorValue(resolveIndicator(widget, analysis))
+                      )}
+                      signals={analyses.map((analysis) =>
+                        indicatorSignal(resolveIndicator(widget, analysis))
+                      )}
+                      wrap
+                    />
+                  ))}
+                </div>
+              </div>
             </section>
           </section>
 
@@ -475,7 +484,7 @@ function ComparisonRow({
   wrap?: boolean;
 }) {
   return (
-    <div className="grid grid-cols-[1.25fr_repeat(3,minmax(0,1fr))] border-b border-white/10 p-3 last:border-b-0">
+    <div className={`${comparisonGridClass} border-b border-white/10 p-3 last:border-b-0`}>
       <p className="text-sm font-bold text-ink">{label}</p>
       {values.map((value, index) => (
         <div key={`${label}-${index}`} className="flex justify-center px-1 text-center">
